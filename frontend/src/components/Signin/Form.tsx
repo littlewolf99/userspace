@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Button, Form, Input, Typography } from "antd";
+import { Link } from "react-router-dom";
 
 const { Title } = Typography;
 
@@ -32,7 +33,11 @@ const SigninForm: React.FC<SigninFormProps> = ({ pending, onSubmit }) => (
       <Input type="password" />
     </Form.Item>
 
-    <div style={{ textAlign: "center", margin: "35px 0 15px" }}>
+    <div style={{ textAlign: "center" }}>
+      <Link to="/signup">New to our site? Click here to sign up</Link>
+    </div>
+
+    <div style={{ textAlign: "center", margin: "15px 0" }}>
       <Button
         type="primary"
         htmlType="submit"

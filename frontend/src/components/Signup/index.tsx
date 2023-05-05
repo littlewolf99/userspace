@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import SignupForm, { SignupData } from "./Form";
 import useCreateUser from "mutations/CreateUser";
 import { useGuestMode } from "utils/auth";
+import Block from "components/common/Block";
 
 const Signup: React.FC = () => {
   const [createUser, pending] = useCreateUser();
@@ -23,7 +24,11 @@ const Signup: React.FC = () => {
     return null;
   }
 
-  return <SignupForm pending={pending} onSubmit={handleSubmit} />;
+  return (
+    <Block>
+      <SignupForm pending={pending} onSubmit={handleSubmit} />
+    </Block>
+  );
 };
 
 export default Signup;
