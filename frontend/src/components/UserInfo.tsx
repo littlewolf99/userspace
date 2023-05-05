@@ -14,7 +14,11 @@ const UserInfo: React.FC = () => {
   const initials = (user.firstName[0] + user.lastName[0]).toUpperCase();
 
   return (
-    <Space direction="vertical" style={{ textAlign: "center" }} size={0}>
+    <Space
+      direction="vertical"
+      style={{ textAlign: "center", width: "100%" }}
+      size={0}
+    >
       <Avatar
         style={{ backgroundColor: "#fde3cf", color: "#f56a00" }}
         size={50}
