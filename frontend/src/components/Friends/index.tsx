@@ -23,7 +23,7 @@ const Friends: React.FC<FriendsProps> = (props) => {
 
   return (
     <Block padding={20}>
-      {data?.friends?.length || 0 > 0 ? (
+      {(data?.friends?.length || 0) > 0 ? (
         <Space direction="vertical" style={{ width: "100%" }}>
           <Typography.Text strong style={{ fontSize: "0.9em" }}>
             Your Friends

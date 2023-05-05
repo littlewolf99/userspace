@@ -43,7 +43,7 @@ export const useAuth = (signInRequired: boolean = true): UseAuth => {
         navigate("/signin");
       }
     }
-  }, [user]);
+  }, [user, navigate, signInRequired]);
 
   return [user, setUser];
 };
@@ -58,7 +58,7 @@ export const useGuestMode = () => {
     if (!isGuest) {
       navigate("/");
     }
-  }, [user]);
+  }, [user, isGuest, navigate]);
 
   return isGuest;
 };
