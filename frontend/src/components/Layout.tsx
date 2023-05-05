@@ -32,7 +32,9 @@ const centeredLayoutPaths = ["/signin", "/signup"];
 
 const AppLayout: React.FC = () => {
   const [user] = useAuth();
-  const data = useLazyLoadQuery<LayoutQuery>(userQuery, { id: user?.id || "" });
+  const data = useLazyLoadQuery<LayoutQuery>(userQuery, {
+    id: user?.id || "0",
+  });
   const location = useLocation();
   const isCenteredLayout =
     centeredLayoutPaths.indexOf(location.pathname.trim().toLowerCase()) >= 0;
@@ -57,7 +59,7 @@ const AppLayout: React.FC = () => {
           <Row gutter={16}>
             {!isCenteredLayout && (
               <Col xs={24} sm={24} md={8}>
-                <Space direction="vertical">
+                <Space direction="vertical" style={{ width: "100%" }}>
                   <UserInfo user={data.user} />
                   <Friends user={data.user} />
                 </Space>
