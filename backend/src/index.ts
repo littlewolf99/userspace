@@ -4,7 +4,7 @@ import { DataSource } from "typeorm";
 import { createServer } from "http";
 import { createYoga } from "graphql-yoga";
 
-import Category from "./entities/Category";
+import User from "./entities/User";
 import schema from "./graphql";
 
 async function main() {
@@ -15,7 +15,7 @@ async function main() {
     username: config.pgUsername,
     password: config.pgPassword,
     database: config.pgDatabase,
-    entities: [Category],
+    entities: [User],
     synchronize: true,
   });
 

@@ -1,9 +1,9 @@
-import Category from "../entities/Category";
+import User from "./fields/User";
+import Query from "./fields/Query";
+import Mutation from "./mutations";
 
 export default {
-  Query: {
-    categories: async () => {
-      return Category.find();
-    },
-  },
+  User,
+  Query,
+  Mutation,
 };
