@@ -11,4 +11,3 @@ const createUserMutation = graphql`
 export default function useCreateUser() {
   return useMutation(createUserMutation);
 }
-

@@ -18,9 +18,19 @@ input CreateUserInput {
   email: String!
 }
 
+input SignInInput {
+  username: String!
+  password: String!
+}
+
 input ConnectUserInput {
   id1: Int!
   id2: Int!
+}
+
+type SignInPayload {
+  user: User!
+  token: String!
 }
 
 type ConnectUserPayload {
@@ -33,5 +43,6 @@ type Query {
 
 type Mutation {
   createUser(input: CreateUserInput): User
+  signIn(input: SignInInput): SignInPayload
   connectUser(input: ConnectUserInput): ConnectUserPayload
 }

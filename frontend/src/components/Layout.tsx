@@ -16,7 +16,7 @@ const containerStyle = {
   margin: "auto",
 };
 
-const centeredLayoutPaths = ["/login", "/signup"];
+const centeredLayoutPaths = ["/signin", "/signup"];
 
 const AppLayout: React.FC = () => {
   const {

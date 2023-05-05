@@ -19,9 +19,19 @@ export default /* GraphQL */ `
     email: String!
   }
 
+  input SignInInput {
+    username: String!
+    password: String!
+  }
+
   input ConnectUserInput {
     id1: Int!
     id2: Int!
+  }
+
+  type SignInPayload {
+    user: User!
+    token: String!
   }
 
   type ConnectUserPayload {
@@ -34,6 +44,7 @@ export default /* GraphQL */ `
 
   type Mutation {
     createUser(input: CreateUserInput): User
+    signIn(input: SignInInput): SignInPayload
     connectUser(input: ConnectUserInput): ConnectUserPayload
   }
 `;
