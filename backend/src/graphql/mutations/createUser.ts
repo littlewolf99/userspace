@@ -28,11 +28,12 @@ export default async function createUser(
     const session = getSession(context);
     await session.executeWrite((txc) =>
       txc.run(
-        "CREATE (user:USER {id: $id, username: $username, fullName: $fullName, email: $email})",
+        "CREATE (user:USER {id: $id, username: $username, firstName: $firstName, lastName: $lastName, email: $email})",
         {
           id: user.id,
           username: user.username,
-          fullName: `${user.firstName} ${user.lastName}`,
+          firstName: user.firstName,
+          lastName: user.lastName,
           email: user.email,
         }
       )
