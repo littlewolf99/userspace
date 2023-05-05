@@ -20,9 +20,6 @@ const containerStyle = {
 const centeredLayoutPaths = ["/signin", "/signup"];
 
 const AppLayout: React.FC = () => {
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
   const location = useLocation();
   const isCenteredLayout =
     centeredLayoutPaths.indexOf(location.pathname.trim().toLowerCase()) >= 0;
@@ -47,28 +44,14 @@ const AppLayout: React.FC = () => {
           <Row gutter={16}>
             {!isCenteredLayout && (
               <Col xs={24} sm={24} md={8}>
-                <div
-                  style={{
-                    background: colorBgContainer,
-                    padding: colPadding,
-                  }}
-                >
-                  <UserInfo />
-                </div>
+                <UserInfo />
               </Col>
             )}
 
             {isCenteredLayout && <Col xs={24} sm={24} md={4} />}
 
             <Col xs={24} sm={24} md={16}>
-              <div
-                style={{
-                  background: colorBgContainer,
-                  padding: colPadding,
-                }}
-              >
-                <Outlet />
-              </div>
+              <Outlet />
             </Col>
 
             {isCenteredLayout && <Col xs={24} sm={24} md={4} />}

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import Users from "./Users";
+import Block from "../common/Block";
 import { useAuth } from "utils/auth";
 
 const Spinner = () => <div>Loading...</div>;
@@ -13,7 +14,9 @@ function Dashboard() {
   return (
     <ErrorBoundary FallbackComponent={Failed}>
       <React.Suspense fallback={<Spinner />}>
-        <Users />
+        <Block>
+          <Users />
+        </Block>
       </React.Suspense>
     </ErrorBoundary>
   );
