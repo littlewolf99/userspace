@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { Col, Layout, Menu, Row, theme } from "antd";
+import UserInfo from "./UserInfo";
 
 const { Header, Content } = Layout;
 
@@ -52,7 +53,7 @@ const AppLayout: React.FC = () => {
                     padding: colPadding,
                   }}
                 >
-                  User info
+                  <UserInfo />
                 </div>
               </Col>
             )}

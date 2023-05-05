@@ -4,6 +4,7 @@ import * as React from "react";
 import ReactDOM from "react-dom/client";
 import "antd/dist/reset.css";
 import { RouterProvider } from "react-router-dom";
+import { AuthContextProvider } from "utils/auth";
 import router from "./routes";
 import reportWebVitals from "./reportWebVitals";
 
@@ -14,7 +15,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <RelayEnvironmentProvider environment={RelayEnvironment}>
     <React.StrictMode>
-      <RouterProvider router={router} />
+      <AuthContextProvider>
+        <RouterProvider router={router} />
+      </AuthContextProvider>
     </React.StrictMode>
   </RelayEnvironmentProvider>
 );

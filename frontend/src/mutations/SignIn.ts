@@ -1,4 +1,5 @@
 import { graphql, useMutation } from "react-relay";
+import { SignInMutation } from "__generated__/SignInMutation.graphql";
 
 const signInMutation = graphql`
   mutation SignInMutation($input: SignInInput!) {
@@ -16,5 +17,5 @@ const signInMutation = graphql`
 `;
 
 export default function useCreateUser() {
-  return useMutation(signInMutation);
+  return useMutation<SignInMutation>(signInMutation);
 }
