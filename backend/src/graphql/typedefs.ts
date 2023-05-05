@@ -1,5 +1,9 @@
 export default /* GraphQL */ `
-  type Category {
+  interface Node {
+    id: ID!
+  }
+
+  type Category implements Node {
     id: ID!
     name: String!
   }
