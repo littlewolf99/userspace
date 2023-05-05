@@ -40,6 +40,7 @@ export default /* GraphQL */ `
 
   type Query {
     users: [User]
+    user(id: ID!): User
   }
 
   type Mutation {

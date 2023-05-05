@@ -4,6 +4,9 @@ import * as React from "react";
 import ReactDOM from "react-dom/client";
 import "antd/dist/reset.css";
 import { RouterProvider } from "react-router-dom";
+import { ErrorBoundary } from "react-error-boundary";
+import Failed from "components/common/Failed";
+import Spinner from "components/common/Spinner";
 import { AuthContextProvider } from "utils/auth";
 import router from "./routes";
 import reportWebVitals from "./reportWebVitals";
@@ -15,9 +18,13 @@ const root = ReactDOM.createRoot(
 root.render(
   <RelayEnvironmentProvider environment={RelayEnvironment}>
     <React.StrictMode>
-      <AuthContextProvider>
-        <RouterProvider router={router} />
-      </AuthContextProvider>
+      <ErrorBoundary FallbackComponent={Failed}>
+        <React.Suspense fallback={<Spinner />}>
+          <AuthContextProvider>
+            <RouterProvider router={router} />
+          </AuthContextProvider>
+        </React.Suspense>
+      </ErrorBoundary>
     </React.StrictMode>
   </RelayEnvironmentProvider>
 );

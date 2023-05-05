@@ -1,11 +1,22 @@
 import * as React from "react";
+import { graphql, useLazyLoadQuery } from "react-relay";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { Col, Layout, Menu, Row, theme } from "antd";
+import { Col, Layout, Menu, Row, Space } from "antd";
 import UserInfo from "./UserInfo";
+import Friends from "./Friends";
+import { useAuth } from "utils/auth";
+import { LayoutQuery } from "__generated__/LayoutQuery.graphql";
 
 const { Header, Content } = Layout;
 
-const colPadding = 25;
+const userQuery = graphql`
+  query LayoutQuery($id: ID!) {
+    user(id: $id) {
+      ...UserInfoFragment
+      ...FriendsFragment
+    }
+  }
+`;
 
 const contentStyle = {
   padding: "20px 25px",
@@ -20,6 +31,8 @@ const containerStyle = {
 const centeredLayoutPaths = ["/signin", "/signup"];
 
 const AppLayout: React.FC = () => {
+  const [user] = useAuth();
+  const data = useLazyLoadQuery<LayoutQuery>(userQuery, { id: user?.id || "" });
   const location = useLocation();
   const isCenteredLayout =
     centeredLayoutPaths.indexOf(location.pathname.trim().toLowerCase()) >= 0;
@@ -44,7 +57,10 @@ const AppLayout: React.FC = () => {
           <Row gutter={16}>
             {!isCenteredLayout && (
               <Col xs={24} sm={24} md={8}>
-                <UserInfo />
+                <Space direction="vertical">
+                  <UserInfo user={data.user} />
+                  <Friends user={data.user} />
+                </Space>
               </Col>
             )}
 

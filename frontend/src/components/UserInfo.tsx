@@ -1,12 +1,24 @@
 import * as React from "react";
+import { graphql, useFragment } from "react-relay";
 import { Avatar, Space, Typography } from "antd";
-import { useAuth } from "utils/auth";
 import Block from "./common/Block";
+import { UserInfoFragment$key } from "__generated__/UserInfoFragment.graphql";
 
-const { Text, Paragraph } = Typography;
+const userInfoFragment = graphql`
+  fragment UserInfoFragment on User {
+    username @required(action: NONE)
+    email @required(action: NONE)
+    firstName @required(action: NONE)
+    lastName @required(action: NONE)
+  }
+`;
 
-const UserInfo: React.FC = () => {
-  const [user] = useAuth(false);
+interface UserInfoProps {
+  user: UserInfoFragment$key | null;
+}
+
+const UserInfo: React.FC<UserInfoProps> = (props) => {
+  const user = useFragment<UserInfoFragment$key>(userInfoFragment, props.user);
 
   if (!user) {
     return null;
@@ -28,13 +40,16 @@ const UserInfo: React.FC = () => {
           {initials}
         </Avatar>
 
-        <Text strong style={{ display: "block", margin: "10px 0 0" }}>
+        <Typography.Text
+          strong
+          style={{ display: "block", margin: "10px 0 0" }}
+        >
           {[user.firstName, user.lastName].join(" ")}
-        </Text>
+        </Typography.Text>
 
-        <Text type="secondary">@{user.username}</Text>
+        <Typography.Text type="secondary">@{user.username}</Typography.Text>
 
-        <Text type="secondary">{user.email}</Text>
+        <Typography.Text type="secondary">{user.email}</Typography.Text>
       </Space>
     </Block>
   );
