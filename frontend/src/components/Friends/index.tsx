@@ -7,9 +7,18 @@ import { FriendsFragment$key } from "__generated__/FriendsFragment.graphql";
 
 const friendsFragment = graphql`
   fragment FriendsFragment on User {
-    friends {
-      id @required(action: NONE)
-      ...FriendFragment
+    friends(first: 3) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        cursor
+        node {
+          id @required(action: NONE)
+          ...FriendFragment
+        }
+      }
     }
   }
 `;
@@ -23,14 +32,17 @@ const Friends: React.FC<FriendsProps> = (props) => {
 
   return (
     <Block padding={20}>
-      {(data?.friends?.length || 0) > 0 ? (
+      {(data?.friends?.edges.length || 0) > 0 ? (
         <Space direction="vertical" style={{ width: "100%" }}>
           <Typography.Text strong style={{ fontSize: "0.9em" }}>
             Your Friends
           </Typography.Text>
 
-          {(data?.friends || []).map((friend) => (
-            <Friend key={friend?.id} user={friend} />
+          {(data?.friends.edges || []).map((friendEdge) => (
+            <Friend
+              key={friendEdge?.node?.id}
+              user={friendEdge?.node || null}
+            />
           ))}
         </Space>
       ) : (

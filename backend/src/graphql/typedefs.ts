@@ -3,13 +3,30 @@ export default /* GraphQL */ `
     id: ID!
   }
 
+  type PageInfo {
+    hasNextPage: Boolean!
+    hasPreviousPage: Boolean!
+    startCursor: String
+    endCursor: String
+  }
+
   type User implements Node {
     id: ID!
     username: String!
     firstName: String!
     lastName: String!
     email: String!
-    friends: [User]
+    friends(first: Int!, before: String, after: String): UserConnection!
+  }
+
+  type UserEdge {
+    node: User
+    cursor: String!
+  }
+
+  type UserConnection {
+    pageInfo: PageInfo!
+    edges: [UserEdge]!
   }
 
   input CreateUserInput {

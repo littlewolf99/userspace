@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<5cc93600f8500c3f1971a9ad3d9eb301>>
+ * @generated SignedSource<<18a0ebe814c509477ea23d57a9fb2a71>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -11,10 +11,19 @@
 import { Fragment, ReaderFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type FriendsFragment$data = {
-  readonly friends: ReadonlyArray<{
-    readonly id: string;
-    readonly " $fragmentSpreads": FragmentRefs<"FriendFragment">;
-  } | null> | null;
+  readonly friends: {
+    readonly edges: ReadonlyArray<{
+      readonly cursor: string;
+      readonly node: {
+        readonly id: string;
+        readonly " $fragmentSpreads": FragmentRefs<"FriendFragment">;
+      } | null;
+    } | null>;
+    readonly pageInfo: {
+      readonly endCursor: string | null;
+      readonly hasNextPage: boolean;
+    };
+  };
   readonly " $fragmentType": "FriendsFragment";
 };
 export type FriendsFragment$key = {
@@ -30,37 +39,97 @@ const node: ReaderFragment = {
   "selections": [
     {
       "alias": null,
-      "args": null,
-      "concreteType": "User",
-      "kind": "LinkedField",
-      "name": "friends",
-      "plural": true,
-      "selections": [
+      "args": [
         {
-          "kind": "RequiredField",
-          "field": {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-          },
-          "action": "NONE",
-          "path": "friends.id"
-        },
-        {
-          "args": null,
-          "kind": "FragmentSpread",
-          "name": "FriendFragment"
+          "kind": "Literal",
+          "name": "first",
+          "value": 3
         }
       ],
-      "storageKey": null
+      "concreteType": "UserConnection",
+      "kind": "LinkedField",
+      "name": "friends",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "PageInfo",
+          "kind": "LinkedField",
+          "name": "pageInfo",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "hasNextPage",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "endCursor",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "UserEdge",
+          "kind": "LinkedField",
+          "name": "edges",
+          "plural": true,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "cursor",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "User",
+              "kind": "LinkedField",
+              "name": "node",
+              "plural": false,
+              "selections": [
+                {
+                  "kind": "RequiredField",
+                  "field": {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "id",
+                    "storageKey": null
+                  },
+                  "action": "NONE",
+                  "path": "friends.edges.node.id"
+                },
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "FriendFragment"
+                }
+              ],
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        }
+      ],
+      "storageKey": "friends(first:3)"
     }
   ],
   "type": "User",
   "abstractKey": null
 };
 
-(node as any).hash = "d784369fbf69a7f0097f4680d3f21008";
+(node as any).hash = "33bd8a1ebd7ba76116fac58bb10ebef8";
 
 export default node;

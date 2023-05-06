@@ -6,6 +6,7 @@ import UserInfo from "./UserInfo";
 import Friends from "./Friends";
 import { useAuth } from "utils/auth";
 import { LayoutQuery } from "__generated__/LayoutQuery.graphql";
+import Suggestions from "./Friends/Suggestions";
 
 const { Header, Content } = Layout;
 
@@ -62,6 +63,7 @@ const AppLayout: React.FC = () => {
                 <Space direction="vertical" style={{ width: "100%" }}>
                   <UserInfo user={data.user} />
                   <Friends user={data.user} />
+                  <Suggestions />
                 </Space>
               </Col>
             )}

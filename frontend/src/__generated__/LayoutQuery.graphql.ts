@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<471d18cca75193e9636d8605f91056d7>>
+ * @generated SignedSource<<d3a3a0449a3f90a2a197d8cf6001ce60>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -125,19 +125,79 @@ return {
           (v5/*: any*/),
           {
             "alias": null,
-            "args": null,
-            "concreteType": "User",
+            "args": [
+              {
+                "kind": "Literal",
+                "name": "first",
+                "value": 3
+              }
+            ],
+            "concreteType": "UserConnection",
             "kind": "LinkedField",
             "name": "friends",
-            "plural": true,
+            "plural": false,
             "selections": [
-              (v6/*: any*/),
-              (v2/*: any*/),
-              (v3/*: any*/),
-              (v4/*: any*/),
-              (v5/*: any*/)
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "PageInfo",
+                "kind": "LinkedField",
+                "name": "pageInfo",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "hasNextPage",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "endCursor",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "UserEdge",
+                "kind": "LinkedField",
+                "name": "edges",
+                "plural": true,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "cursor",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "User",
+                    "kind": "LinkedField",
+                    "name": "node",
+                    "plural": false,
+                    "selections": [
+                      (v6/*: any*/),
+                      (v2/*: any*/),
+                      (v3/*: any*/),
+                      (v4/*: any*/),
+                      (v5/*: any*/)
+                    ],
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              }
             ],
-            "storageKey": null
+            "storageKey": "friends(first:3)"
           },
           (v6/*: any*/)
         ],
@@ -146,12 +206,12 @@ return {
     ]
   },
   "params": {
-    "cacheID": "ac8e0f8b04ab235f331d27b29d5a1025",
+    "cacheID": "12713f3e6a9f92c04fb8fa77f6233abd",
     "id": null,
     "metadata": {},
     "name": "LayoutQuery",
     "operationKind": "query",
-    "text": "query LayoutQuery(\n  $id: ID!\n) {\n  user(id: $id) {\n    ...UserInfoFragment\n    ...FriendsFragment\n    id\n  }\n}\n\nfragment FriendFragment on User {\n  id\n  username\n  email\n  firstName\n  lastName\n}\n\nfragment FriendsFragment on User {\n  friends {\n    id\n    ...FriendFragment\n  }\n}\n\nfragment UserInfoFragment on User {\n  username\n  email\n  firstName\n  lastName\n}\n"
+    "text": "query LayoutQuery(\n  $id: ID!\n) {\n  user(id: $id) {\n    ...UserInfoFragment\n    ...FriendsFragment\n    id\n  }\n}\n\nfragment FriendFragment on User {\n  id\n  username\n  email\n  firstName\n  lastName\n}\n\nfragment FriendsFragment on User {\n  friends(first: 3) {\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n    edges {\n      cursor\n      node {\n        id\n        ...FriendFragment\n      }\n    }\n  }\n}\n\nfragment UserInfoFragment on User {\n  username\n  email\n  firstName\n  lastName\n}\n"
   }
 };
 })();
