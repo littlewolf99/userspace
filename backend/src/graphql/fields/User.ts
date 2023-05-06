@@ -21,7 +21,7 @@ export default {
     context: any
   ): Promise<Connection<UserData>> =>
     doPaginate(
-      { args },
+      { args, allowedKeyFields: ["id"] },
       async (isForward, keyField, startKey, direction, comp, limit) => {
         const where = startKey
           ? ` WHERE friend.${keyField} ${comp} $startKey`
@@ -65,7 +65,7 @@ export default {
     context: any
   ): Promise<Connection<UserData>> =>
     doPaginate(
-      { args },
+      { args, allowedKeyFields: ["id"] },
       async (isForward, keyField, startKey, direction, comp, limit) => {
         const where = startKey
           ? ` WHERE friend.${keyField} ${comp} $startKey`

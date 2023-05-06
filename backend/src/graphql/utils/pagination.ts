@@ -26,6 +26,7 @@ type FetcherFn<T> = (
 
 interface DoPaginateParams {
   args: PaginationParams;
+  allowedKeyFields: string[];
   isAscendingForward?: boolean;
   defaultKeyField?: string;
 }
@@ -34,7 +35,7 @@ const doPaginate = async <T extends BaseNode>(
   config: DoPaginateParams,
   fetcherFn: FetcherFn<T>
 ) => {
-  const { args } = config;
+  const { args, allowedKeyFields } = config;
   const isAscendingForward =
     typeof config.isAscendingForward === "undefined"
       ? true
@@ -42,7 +43,10 @@ const doPaginate = async <T extends BaseNode>(
   const defaultKeyField = config.defaultKeyField || "id";
   const isForward = !!args.after || !args.before;
   let [keyField, startKey] = parseCursor(args.after || args.before || "");
-  keyField = keyField || defaultKeyField;
+  keyField =
+    (keyField && allowedKeyFields.indexOf(keyField) >= 0 ? keyField : "") ||
+    defaultKeyField ||
+    allowedKeyFields[0];
 
   const direction = isAscendingForward === isForward ? "ASC" : "DESC";
   const comp = isAscendingForward === isForward ? ">" : "<";
