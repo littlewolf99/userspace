@@ -75,7 +75,6 @@ const doPaginate = async <T extends BaseNode>(
   return {
     pageInfo,
     edges,
-    totalCount: 0,
   };
 };
 

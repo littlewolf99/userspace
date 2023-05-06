@@ -22,7 +22,6 @@ interface PageInfo {
 interface Connection<T> {
   pageInfo: PageInfo;
   edges: Edge<T>[];
-  totalCount: Number;
 }
 
 interface Edge<T> {
