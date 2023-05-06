@@ -4,6 +4,7 @@ import { QueryResult, Node } from "neo4j-driver";
 import { getSession } from "../../neo4j/connection";
 import User from "../../entities/User";
 import doPaginate from "../utils/pagination";
+import { createIDGenerator } from "../utils/id";
 
 interface UserData {
   id: number;
@@ -13,6 +14,7 @@ interface UserData {
 }
 
 export default {
+  ...createIDGenerator("user"),
   friends: async (
     user: User,
     args: PaginationParams,
