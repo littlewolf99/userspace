@@ -16,6 +16,7 @@ type User implements Node {
   lastName: String!
   email: String!
   friends(first: Int!, before: String, after: String): UserConnection!
+  friendSuggestions(first: Int!, before: String, after: String): UserConnection!
 }
 
 type UserEdge {

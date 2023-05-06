@@ -17,6 +17,11 @@ export default /* GraphQL */ `
     lastName: String!
     email: String!
     friends(first: Int!, before: String, after: String): UserConnection!
+    friendSuggestions(
+      first: Int!
+      before: String
+      after: String
+    ): UserConnection!
   }
 
   type UserEdge {
