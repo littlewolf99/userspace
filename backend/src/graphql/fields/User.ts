@@ -40,11 +40,11 @@ export default {
         >((txc) =>
           txc.run(
             `
-              MATCH (user:USER {id: $id})
-              MATCH (user)-[:FRIEND]-(friend:USER) ${where}
-              RETURN friend ORDER BY friend.${keyField} ${direction}
-              LIMIT ${limit + 1}
-              `,
+            MATCH (user:USER {id: $id})
+            MATCH (user)-[:FRIEND]-(friend:USER) ${where}
+            RETURN friend ORDER BY friend.${keyField} ${direction}
+            LIMIT ${limit + 1}
+            `,
             variables
           )
         );
@@ -84,12 +84,12 @@ export default {
         >((txc) =>
           txc.run(
             `
-              MATCH (user:USER {id: $id})
-              MATCH (user)-[:FRIEND]-(:USER)-[:FRIEND]-(suggestion:USER)
-              ${where}
-              RETURN suggestion ORDER BY suggestion.${keyField} ${direction}
-              LIMIT ${limit + 1}
-              `,
+            MATCH (user:USER {id: $id})
+            MATCH (user)-[:FRIEND]-(:USER)-[:FRIEND]-(suggestion:USER)
+            ${where}
+            RETURN suggestion ORDER BY suggestion.${keyField} ${direction}
+            LIMIT ${limit + 1}
+            `,
             variables
           )
         );
