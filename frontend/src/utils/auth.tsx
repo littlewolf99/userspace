@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 
-interface User {
+export interface User {
   id: string;
   username: string;
   email: string;

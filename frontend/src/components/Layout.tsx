@@ -61,7 +61,7 @@ const AppLayout: React.FC = () => {
           <Row gutter={16}>
             {!isCenteredLayout && (
               <Col xs={24} sm={24} md={8}>
-                <Space direction="vertical" style={{ width: "100%" }}>
+                <Space size={15} direction="vertical" style={{ width: "100%" }}>
                   <UserInfo user={data.user} />
                   <Friends user={data.user} />
                   <FriendSuggestions user={data.user} />

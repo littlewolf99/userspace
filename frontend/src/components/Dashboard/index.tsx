@@ -1,20 +1,21 @@
 import * as React from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import { useAuth } from "utils/auth";
 import Failed from "components/common/Failed";
 import Spinner from "components/common/Spinner";
-import Block from "components/common/Block";
-import Users from "./Users";
-import { useAuth } from "utils/auth";
+import DashboardContainer from "./DashboardContainer";
 
 function Dashboard() {
-  useAuth();
+  const [user] = useAuth();
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <ErrorBoundary FallbackComponent={Failed}>
       <React.Suspense fallback={<Spinner />}>
-        <Block>
-          <Users />
-        </Block>
+        <DashboardContainer user={user} />
       </React.Suspense>
     </ErrorBoundary>
   );
