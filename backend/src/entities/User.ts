@@ -1,4 +1,11 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import Post from "./Post";
 
 @Entity()
 export default class User extends BaseEntity {
@@ -23,6 +30,10 @@ export default class User extends BaseEntity {
 
   @Column({
     length: 100,
+    unique: true,
   })
   email: string;
+
+  @OneToMany(() => Post, (post) => post.user)
+  posts: Post[];
 }

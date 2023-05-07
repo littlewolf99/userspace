@@ -22,6 +22,7 @@ export default /* GraphQL */ `
       before: String
       after: String
     ): UserConnection!
+    feed(first: Int!, before: String, after: String): PostConnection!
   }
 
   type UserEdge {
@@ -32,6 +33,24 @@ export default /* GraphQL */ `
   type UserConnection {
     pageInfo: PageInfo!
     edges: [UserEdge]!
+  }
+
+  type Post {
+    id: ID!
+    content: String!
+    postedAt: String!
+    userId: String!
+    user: User!
+  }
+
+  type PostEdge {
+    node: Post
+    cursor: String!
+  }
+
+  type PostConnection {
+    pageInfo: PageInfo!
+    edges: [PostEdge]!
   }
 
   input CreateUserInput {
@@ -49,6 +68,11 @@ export default /* GraphQL */ `
   input ConnectUserInput {
     id1: Int!
     id2: Int!
+  }
+
+  input CreatePostInput {
+    userId: String!
+    content: String!
   }
 
   type SignInPayload {
@@ -69,5 +93,6 @@ export default /* GraphQL */ `
     createUser(input: CreateUserInput): User
     signIn(input: SignInInput): SignInPayload
     connectUser(input: ConnectUserInput): ConnectUserPayload
+    createPost(input: CreatePostInput): Post
   }
 `;

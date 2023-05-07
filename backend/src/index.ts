@@ -3,9 +3,9 @@ import config from "./config";
 import { DataSource } from "typeorm";
 import { createServer } from "http";
 import { createYoga } from "graphql-yoga";
-
-import User from "./entities/User";
 import schema from "./graphql";
+import User from "./entities/User";
+import Post from "./entities/Post";
 
 async function main() {
   const AppDataSource = new DataSource({
@@ -15,7 +15,7 @@ async function main() {
     username: config.pgUsername,
     password: config.pgPassword,
     database: config.pgDatabase,
-    entities: [User],
+    entities: [User, Post],
     synchronize: true,
   });
 

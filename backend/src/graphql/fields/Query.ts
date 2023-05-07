@@ -6,6 +6,9 @@ export default {
 
   user: async (source: any, args: { id: string }) => {
     const [id] = parseGlobalID(args.id);
+    if (!id) {
+      return null;
+    }
     return User.findOne({ where: { id } });
   },
 };
