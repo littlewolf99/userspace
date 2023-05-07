@@ -23,7 +23,7 @@ const PostCreate: React.FC<PostCreateProps> = ({ user }) => {
   };
 
   return (
-    <Block>
+    <Block padding={15}>
       <PostForm pending={pending} onSubmit={handleSubmit} />
     </Block>
   );
