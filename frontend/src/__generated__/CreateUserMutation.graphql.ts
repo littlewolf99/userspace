@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<01aa0f4a0bef058af37cc2fd35fb3032>>
+ * @generated SignedSource<<73d92e53d3641091a400f9a03e334592>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -20,7 +20,10 @@ export type CreateUserMutation$variables = {
 };
 export type CreateUserMutation$data = {
   readonly createUser: {
-    readonly id: string;
+    readonly cursor: string;
+    readonly node: {
+      readonly id: string;
+    } | null;
   } | null;
 };
 export type CreateUserMutation = {
@@ -46,7 +49,7 @@ v1 = [
         "variableName": "input"
       }
     ],
-    "concreteType": "User",
+    "concreteType": "UserEdge",
     "kind": "LinkedField",
     "name": "createUser",
     "plural": false,
@@ -55,7 +58,25 @@ v1 = [
         "alias": null,
         "args": null,
         "kind": "ScalarField",
-        "name": "id",
+        "name": "cursor",
+        "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "User",
+        "kind": "LinkedField",
+        "name": "node",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "id",
+            "storageKey": null
+          }
+        ],
         "storageKey": null
       }
     ],
@@ -80,16 +101,16 @@ return {
     "selections": (v1/*: any*/)
   },
   "params": {
-    "cacheID": "47620a12fcb9e2d2b0f7ff68a06beb13",
+    "cacheID": "8b23511f10b7fcaba7a25c242de32ca1",
     "id": null,
     "metadata": {},
     "name": "CreateUserMutation",
     "operationKind": "mutation",
-    "text": "mutation CreateUserMutation(\n  $input: CreateUserInput!\n) {\n  createUser(input: $input) {\n    id\n  }\n}\n"
+    "text": "mutation CreateUserMutation(\n  $input: CreateUserInput!\n) {\n  createUser(input: $input) {\n    cursor\n    node {\n      id\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "9859da8998d053fe64b00de5bed290d4";
+(node as any).hash = "6770963a5fd6488a947004e234085b53";
 
 export default node;

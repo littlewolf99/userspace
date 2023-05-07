@@ -2,6 +2,7 @@
 
 import { getSession } from "../../neo4j/connection";
 import User from "../../entities/User";
+import { createEdge } from "../utils/pagination";
 
 interface CreateUserInput {
   username: string;
@@ -14,7 +15,7 @@ export default async function createUser(
   source: any,
   args: MutationInput<CreateUserInput>,
   context: any
-): Promise<User> {
+): Promise<Edge<User>> {
   const userData = args.input;
 
   const user = new User();
@@ -43,5 +44,5 @@ export default async function createUser(
     throw err;
   }
 
-  return user;
+  return createEdge(user, "id");
 }

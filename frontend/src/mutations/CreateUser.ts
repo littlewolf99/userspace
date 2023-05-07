@@ -4,7 +4,10 @@ import { CreateUserMutation } from "__generated__/CreateUserMutation.graphql";
 const createUserMutation = graphql`
   mutation CreateUserMutation($input: CreateUserInput!) {
     createUser(input: $input) {
-      id
+      cursor
+      node {
+        id
+      }
     }
   }
 `;

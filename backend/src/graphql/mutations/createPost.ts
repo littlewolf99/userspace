@@ -4,6 +4,7 @@ import { getSession } from "../../neo4j/connection";
 import Post from "../../entities/Post";
 import User from "../../entities/User";
 import { parseGlobalID } from "../utils/id";
+import { createEdge } from "../utils/pagination";
 
 interface CreatePostInput {
   userId: string;
@@ -14,7 +15,7 @@ export default async function createPost(
   source: any,
   args: MutationInput<CreatePostInput>,
   context: any
-): Promise<Post> {
+): Promise<Edge<Post>> {
   const [id] = parseGlobalID(args.input.userId);
   const user = await User.findOneBy({ id });
   if (!user) {
@@ -43,5 +44,5 @@ export default async function createPost(
     )
   );
 
-  return post;
+  return createEdge(post, "postedAt");
 }

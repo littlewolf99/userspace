@@ -4,14 +4,9 @@ import { CreatePostMutation } from "__generated__/CreatePostMutation.graphql";
 const createPostMutation = graphql`
   mutation CreatePostMutation($input: CreatePostInput!) {
     createPost(input: $input) {
-      id
-      content
-      postedAt
-      user {
-        id
-        username
-        firstName
-        lastName
+      cursor
+      node {
+        ...FeedItemFragment
       }
     }
   }

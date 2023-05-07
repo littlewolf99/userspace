@@ -90,9 +90,9 @@ export default /* GraphQL */ `
   }
 
   type Mutation {
-    createUser(input: CreateUserInput): User
+    createUser(input: CreateUserInput): UserEdge
     signIn(input: SignInInput): SignInPayload
     connectUser(input: ConnectUserInput): ConnectUserPayload
-    createPost(input: CreatePostInput): Post
+    createPost(input: CreatePostInput): PostEdge
   }
 `;

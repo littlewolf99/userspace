@@ -1,16 +1,19 @@
-const generateCursor = (
+export const generateCursor = (
   field: string,
   object: { [key: string]: any }
 ): string => {
   return Buffer.from(`${field}--${object[field]}`).toString("base64");
 };
 
-const parseCursor = (cursor: string): [string, number] => {
+export const parseCursor = (cursor: string): [string, number] => {
   const tokens = Buffer.from(cursor, "base64").toString().split("--");
   return [tokens[0], parseInt(tokens[1] || "0")];
 };
 
-const createEdge = <T extends BaseNode>(node: T, field: string): Edge<T> => ({
+export const createEdge = <T extends BaseNode>(
+  node: T,
+  field: string
+): Edge<T> => ({
   node,
   cursor: generateCursor(field, node),
 });
