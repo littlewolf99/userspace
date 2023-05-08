@@ -2,12 +2,19 @@ export const generateCursor = (
   field: string,
   object: { [key: string]: any }
 ): string => {
-  return Buffer.from(`${field}--${object[field]}`).toString("base64");
+  const fieldValue =
+    object[field].constructor === Date
+      ? object[field].toISOString()
+      : object[field];
+
+  return Buffer.from(`${field}--${fieldValue}`).toString("base64");
 };
 
-export const parseCursor = (cursor: string): [string, number] => {
+export const parseCursor = (cursor: string): [string, string | number] => {
   const tokens = Buffer.from(cursor, "base64").toString().split("--");
-  return [tokens[0], parseInt(tokens[1] || "0")];
+  const keyToken = tokens[1] || "0";
+  const key = keyToken.match(/^[0-9\.]+$/) ? parseInt(keyToken) : keyToken;
+  return [tokens[0], key];
 };
 
 export const createEdge = <T extends BaseNode>(
@@ -31,7 +38,6 @@ interface DoPaginateParams {
   args: PaginationParams;
   allowedKeyFields: string[];
   isAscendingForward?: boolean;
-  defaultKeyField?: string;
 }
 
 const doPaginate = async <T extends BaseNode>(
@@ -43,12 +49,10 @@ const doPaginate = async <T extends BaseNode>(
     typeof config.isAscendingForward === "undefined"
       ? true
       : config.isAscendingForward;
-  const defaultKeyField = config.defaultKeyField || "id";
   const isForward = !!args.after || !args.before;
   let [keyField, startKey] = parseCursor(args.after || args.before || "");
   keyField =
     (keyField && allowedKeyFields.indexOf(keyField) >= 0 ? keyField : "") ||
-    defaultKeyField ||
     allowedKeyFields[0];
 
   const direction = isAscendingForward === isForward ? "ASC" : "DESC";
@@ -61,7 +65,7 @@ const doPaginate = async <T extends BaseNode>(
     startKey,
     direction,
     comp,
-    limit
+    limit + 1
   );
 
   const hasNextPage = data.length > limit;

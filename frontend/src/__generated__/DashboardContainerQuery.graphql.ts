@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f8259a6cd61de0bfa7c75230c56bde91>>
+ * @generated SignedSource<<a6b4b2d65221c1e2465d27b6ffcbecd9>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -38,7 +38,14 @@ v1 = [
     "variableName": "id"
   }
 ],
-v2 = {
+v2 = [
+  {
+    "kind": "Literal",
+    "name": "first",
+    "value": 10
+  }
+],
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -93,13 +100,7 @@ return {
         "selections": [
           {
             "alias": null,
-            "args": [
-              {
-                "kind": "Literal",
-                "name": "first",
-                "value": 3
-              }
-            ],
+            "args": (v2/*: any*/),
             "concreteType": "PostConnection",
             "kind": "LinkedField",
             "name": "feed",
@@ -121,7 +122,7 @@ return {
                     "name": "node",
                     "plural": false,
                     "selections": [
-                      (v2/*: any*/),
+                      (v3/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -144,7 +145,7 @@ return {
                         "name": "user",
                         "plural": false,
                         "selections": [
-                          (v2/*: any*/),
+                          (v3/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -168,29 +169,77 @@ return {
                           }
                         ],
                         "storageKey": null
+                      },
+                      {
+                        "alias": null,
+                        "args": null,
+                        "kind": "ScalarField",
+                        "name": "__typename",
+                        "storageKey": null
                       }
                     ],
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "cursor",
+                    "storageKey": null
+                  }
+                ],
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "concreteType": "PageInfo",
+                "kind": "LinkedField",
+                "name": "pageInfo",
+                "plural": false,
+                "selections": [
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "endCursor",
+                    "storageKey": null
+                  },
+                  {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "hasNextPage",
                     "storageKey": null
                   }
                 ],
                 "storageKey": null
               }
             ],
-            "storageKey": "feed(first:3)"
+            "storageKey": "feed(first:10)"
           },
-          (v2/*: any*/)
+          {
+            "alias": null,
+            "args": (v2/*: any*/),
+            "filters": null,
+            "handle": "connection",
+            "key": "FeedFragment__feed",
+            "kind": "LinkedHandle",
+            "name": "feed"
+          },
+          (v3/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "8997bd3c0aa3b8702341337816adbe61",
+    "cacheID": "f5bfeb6bbb134cd66af9daf1b2aa845e",
     "id": null,
     "metadata": {},
     "name": "DashboardContainerQuery",
     "operationKind": "query",
-    "text": "query DashboardContainerQuery(\n  $id: ID!\n) {\n  user(id: $id) {\n    ...FeedFragment\n    id\n  }\n}\n\nfragment FeedFragment on User {\n  feed(first: 3) {\n    edges {\n      node {\n        id\n        ...FeedItemFragment\n      }\n    }\n  }\n}\n\nfragment FeedItemFragment on Post {\n  id\n  content\n  postedAt\n  user {\n    id\n    username\n    firstName\n    lastName\n  }\n}\n"
+    "text": "query DashboardContainerQuery(\n  $id: ID!\n) {\n  user(id: $id) {\n    ...FeedFragment\n    id\n  }\n}\n\nfragment FeedFragment on User {\n  feed(first: 10) {\n    edges {\n      node {\n        id\n        ...FeedItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment FeedItemFragment on Post {\n  id\n  content\n  postedAt\n  user {\n    id\n    username\n    firstName\n    lastName\n  }\n}\n"
   }
 };
 })();

@@ -39,7 +39,7 @@ export default async function createPost(
       {
         id: post.id,
         userId: user.id,
-        postedAt: Math.floor(post.postedAt.getTime() / 1000),
+        postedAt: post.postedAt.toISOString(),
       }
     )
   );

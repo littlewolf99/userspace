@@ -20,8 +20,13 @@ const rules = {
 };
 
 const PostForm: React.FC<PostFormProps> = ({ pending, onSubmit }) => (
-  <Form name="post" onFinish={onSubmit}>
-    <Form.Item name="content" rules={rules.content}>
+  <Form
+    name="post"
+    layout="inline"
+    style={{ width: "100%", display: "flex" }}
+    onFinish={onSubmit}
+  >
+    <Form.Item name="content" rules={rules.content} style={{ flex: "1 1 0" }}>
       <Input />
     </Form.Item>
 

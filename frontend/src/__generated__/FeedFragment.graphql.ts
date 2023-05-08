@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<075bb241de1310e548d6e6f9a168d77d>>
+ * @generated SignedSource<<6556395223b226d493a8b21e2e5ffbec>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type FeedFragment$data = {
   readonly feed: {
@@ -19,6 +19,7 @@ export type FeedFragment$data = {
       } | null;
     } | null>;
   };
+  readonly id: string;
   readonly " $fragmentType": "FeedFragment";
 };
 export type FeedFragment$key = {
@@ -26,24 +27,64 @@ export type FeedFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"FeedFragment">;
 };
 
-const node: ReaderFragment = {
-  "argumentDefinitions": [],
+const node: ReaderFragment = (function(){
+var v0 = [
+  "feed"
+],
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
+return {
+  "argumentDefinitions": [
+    {
+      "defaultValue": 10,
+      "kind": "LocalArgument",
+      "name": "count"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "cursor"
+    }
+  ],
   "kind": "Fragment",
-  "metadata": null,
+  "metadata": {
+    "connection": [
+      {
+        "count": "count",
+        "cursor": "cursor",
+        "direction": "forward",
+        "path": (v0/*: any*/)
+      }
+    ],
+    "refetch": {
+      "connection": {
+        "forward": {
+          "count": "count",
+          "cursor": "cursor"
+        },
+        "backward": null,
+        "path": (v0/*: any*/)
+      },
+      "fragmentPathInResult": [
+        "node"
+      ],
+      "operation": require('./FeedFragmentPaginationQuery.graphql'),
+      "identifierField": "id"
+    }
+  },
   "name": "FeedFragment",
   "selections": [
     {
-      "alias": null,
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "first",
-          "value": 3
-        }
-      ],
+      "alias": "feed",
+      "args": null,
       "concreteType": "PostConnection",
       "kind": "LinkedField",
-      "name": "feed",
+      "name": "__FeedFragment__feed_connection",
       "plural": false,
       "selections": [
         {
@@ -62,32 +103,67 @@ const node: ReaderFragment = {
               "name": "node",
               "plural": false,
               "selections": [
-                {
-                  "alias": null,
-                  "args": null,
-                  "kind": "ScalarField",
-                  "name": "id",
-                  "storageKey": null
-                },
+                (v1/*: any*/),
                 {
                   "args": null,
                   "kind": "FragmentSpread",
                   "name": "FeedItemFragment"
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "__typename",
+                  "storageKey": null
                 }
               ],
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "cursor",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "PageInfo",
+          "kind": "LinkedField",
+          "name": "pageInfo",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "endCursor",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "hasNextPage",
               "storageKey": null
             }
           ],
           "storageKey": null
         }
       ],
-      "storageKey": "feed(first:3)"
-    }
+      "storageKey": null
+    },
+    (v1/*: any*/)
   ],
   "type": "User",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "d39d9395d997984410947c595643138f";
+(node as any).hash = "b8d5f596b45d1edbbb3f1f91f79afc17";
 
 export default node;

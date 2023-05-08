@@ -2,11 +2,10 @@
 
 import { QueryResult, Node } from "neo4j-driver";
 import { getSession } from "../../neo4j/connection";
-import { In } from "typeorm";
 import doPaginate from "../utils/pagination";
 import { createIDGenerator } from "../utils/id";
 import User from "../../entities/User";
-import Post from "../../entities/Post";
+import { getPostLoader } from "../dataloaders";
 
 interface UserData {
   id: number;
@@ -55,7 +54,7 @@ export default {
               "MATCH (user)-[:FRIEND]-(friend:USER)",
               where,
               `RETURN friend ORDER BY friend.${keyField} ${direction}`,
-              `LIMIT ${limit + 1}`,
+              `LIMIT ${limit}`,
             ].join("\n"),
             variables
           )
@@ -100,7 +99,7 @@ export default {
               "MATCH (user)-[:FRIEND]-(:USER)-[:FRIEND]-(suggestion:USER)",
               where,
               `RETURN suggestion ORDER BY suggestion.${keyField} ${direction}`,
-              `LIMIT ${limit + 1}`,
+              `LIMIT ${limit}`,
             ].join("\n"),
             variables
           )
@@ -145,20 +144,18 @@ export default {
               "MATCH (user)-[:FRIEND]-(:USER)<-[:POSTED_BY]-(post:POST)",
               where,
               `RETURN post ORDER BY post.${keyField} ${direction}`,
-              `LIMIT ${limit + 1}`,
+              `LIMIT ${limit}`,
             ].join("\n"),
             variables
           )
         );
         session.close();
 
+        const postLoader = getPostLoader(session);
         const postIds = result.records.map(
           (record) => record.get("post").properties.id
         );
-
-        return Post.findBy({
-          id: In(postIds),
-        });
+        return Promise.all(postIds.map((id) => postLoader.load(id)));
       }
     ),
 };

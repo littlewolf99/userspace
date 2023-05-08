@@ -85,6 +85,7 @@ export default /* GraphQL */ `
   }
 
   type Query {
+    node(id: ID!): Node
     users: [User]
     user(id: ID!): User
   }
