@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { Col, Layout, Menu, Row, notification } from "antd";
+import { Col, Layout, Row, notification } from "antd";
 import { ErrorBoundary } from "react-error-boundary";
 import { useAuth } from "utils/auth";
 import Failed from "components/common/Failed";
