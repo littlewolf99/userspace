@@ -4,6 +4,7 @@ dotenv.config();
 
 const config = {
   port: Number(process.env.PORT) || 8000,
+  appSecret: process.env.APP_SECRET,
 
   pgHost: process.env.PG_HOST || "localhost",
   pgPort: Number(process.env.PG_PORT) || 5432,

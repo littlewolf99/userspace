@@ -6,6 +6,7 @@ const { Title } = Typography;
 
 export interface SignupData {
   username: string;
+  password: string;
   email: string;
   firstName: string;
   lastName: string;
@@ -18,6 +19,7 @@ interface SignupFormProps {
 
 const rules = {
   username: [{ required: true, message: "Please input your username" }],
+  password: [{ required: true, message: "Please input your password" }],
   email: [{ required: true, message: "Please input your email" }],
   firstName: [{ required: true, message: "Please input your first name" }],
   lastName: [{ required: true, message: "Please input your last name" }],
@@ -31,6 +33,10 @@ const SignupForm: React.FC<SignupFormProps> = ({ pending, onSubmit }) => (
 
     <Form.Item label="Username" name="username" rules={rules.username}>
       <Input />
+    </Form.Item>
+
+    <Form.Item label="Password" name="password" rules={rules.password}>
+      <Input type="password" />
     </Form.Item>
 
     <Form.Item label="Email" name="email" rules={rules.email}>

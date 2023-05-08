@@ -1,27 +1,23 @@
 import * as React from "react";
 import { graphql, useLazyLoadQuery } from "react-relay";
 import { Space } from "antd";
-import { User } from "utils/auth";
 import { DashboardContainerQuery } from "__generated__/DashboardContainerQuery.graphql";
 import PostCreate from "./PostCreate";
 import Feed from "./Feed";
 
 const dashboardContainerQuery = graphql`
-  query DashboardContainerQuery($id: ID!) {
-    user(id: $id) @required(action: NONE) {
+  query DashboardContainerQuery {
+    currentUser @required(action: NONE) {
       ...FeedFragment
+      ...PostCreateFragment
     }
   }
 `;
 
-interface DashboardContainerProps {
-  user: User;
-}
-
-const DashboardContainer: React.FC<DashboardContainerProps> = ({ user }) => {
+const DashboardContainer: React.FC = () => {
   const data = useLazyLoadQuery<DashboardContainerQuery>(
     dashboardContainerQuery,
-    { id: user.id }
+    {}
   );
 
   if (!data) {
@@ -30,9 +26,9 @@ const DashboardContainer: React.FC<DashboardContainerProps> = ({ user }) => {
 
   return (
     <Space size={15} direction="vertical" style={{ width: "100%" }}>
-      <PostCreate user={user} />
+      <PostCreate user={data.currentUser} />
 
-      <Feed user={data.user} />
+      <Feed user={data.currentUser} />
     </Space>
   );
 };

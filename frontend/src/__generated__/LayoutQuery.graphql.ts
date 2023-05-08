@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<485d899ed8417dfc9114b66ad595087f>>
+ * @generated SignedSource<<6469cc2f84bcd2f8c54114bd62494926>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,11 +10,9 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type LayoutQuery$variables = {
-  id: string;
-};
+export type LayoutQuery$variables = {};
 export type LayoutQuery$data = {
-  readonly user: {
+  readonly currentUser: {
     readonly " $fragmentSpreads": FragmentRefs<"FriendSuggestionsFragment" | "FriendsFragment" | "UserInfoFragment">;
   } | null;
 };
@@ -24,63 +22,49 @@ export type LayoutQuery = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "id"
-  }
-],
-v1 = [
-  {
-    "kind": "Variable",
-    "name": "id",
-    "variableName": "id"
-  }
-],
-v2 = {
+var v0 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "username",
   "storageKey": null
 },
-v3 = {
+v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "email",
   "storageKey": null
 },
-v4 = {
+v2 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "firstName",
   "storageKey": null
 },
-v5 = {
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "lastName",
   "storageKey": null
 },
-v6 = [
+v4 = [
   {
     "kind": "Literal",
     "name": "first",
     "value": 3
   }
 ],
-v7 = {
+v5 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
   "storageKey": null
 },
-v8 = {
+v6 = {
   "alias": null,
   "args": null,
   "concreteType": "User",
@@ -88,27 +72,27 @@ v8 = {
   "name": "node",
   "plural": false,
   "selections": [
-    (v7/*: any*/),
+    (v5/*: any*/),
+    (v0/*: any*/),
+    (v1/*: any*/),
     (v2/*: any*/),
-    (v3/*: any*/),
-    (v4/*: any*/),
-    (v5/*: any*/)
+    (v3/*: any*/)
   ],
   "storageKey": null
 };
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
     "name": "LayoutQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": null,
         "concreteType": "User",
         "kind": "LinkedField",
-        "name": "user",
+        "name": "currentUser",
         "plural": false,
         "selections": [
           {
@@ -135,25 +119,25 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [],
     "kind": "Operation",
     "name": "LayoutQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": null,
         "concreteType": "User",
         "kind": "LinkedField",
-        "name": "user",
+        "name": "currentUser",
         "plural": false,
         "selections": [
+          (v0/*: any*/),
+          (v1/*: any*/),
           (v2/*: any*/),
           (v3/*: any*/),
-          (v4/*: any*/),
-          (v5/*: any*/),
           {
             "alias": null,
-            "args": (v6/*: any*/),
+            "args": (v4/*: any*/),
             "concreteType": "UserConnection",
             "kind": "LinkedField",
             "name": "friends",
@@ -199,7 +183,7 @@ return {
                     "name": "cursor",
                     "storageKey": null
                   },
-                  (v8/*: any*/)
+                  (v6/*: any*/)
                 ],
                 "storageKey": null
               }
@@ -208,7 +192,7 @@ return {
           },
           {
             "alias": null,
-            "args": (v6/*: any*/),
+            "args": (v4/*: any*/),
             "concreteType": "UserConnection",
             "kind": "LinkedField",
             "name": "friendSuggestions",
@@ -222,30 +206,30 @@ return {
                 "name": "edges",
                 "plural": true,
                 "selections": [
-                  (v8/*: any*/)
+                  (v6/*: any*/)
                 ],
                 "storageKey": null
               }
             ],
             "storageKey": "friendSuggestions(first:3)"
           },
-          (v7/*: any*/)
+          (v5/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "427c941d029f053d7f4c0344a2b764fa",
+    "cacheID": "f25f8ba214ba36f54b4c20eb96da5c61",
     "id": null,
     "metadata": {},
     "name": "LayoutQuery",
     "operationKind": "query",
-    "text": "query LayoutQuery(\n  $id: ID!\n) {\n  user(id: $id) {\n    ...UserInfoFragment\n    ...FriendsFragment\n    ...FriendSuggestionsFragment\n    id\n  }\n}\n\nfragment FriendFragment on User {\n  id\n  username\n  email\n  firstName\n  lastName\n}\n\nfragment FriendSuggestionsFragment on User {\n  friendSuggestions(first: 3) {\n    edges {\n      node {\n        id\n        ...FriendFragment\n      }\n    }\n  }\n}\n\nfragment FriendsFragment on User {\n  friends(first: 3) {\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n    edges {\n      cursor\n      node {\n        id\n        ...FriendFragment\n      }\n    }\n  }\n}\n\nfragment UserInfoFragment on User {\n  username\n  email\n  firstName\n  lastName\n}\n"
+    "text": "query LayoutQuery {\n  currentUser {\n    ...UserInfoFragment\n    ...FriendsFragment\n    ...FriendSuggestionsFragment\n    id\n  }\n}\n\nfragment FriendFragment on User {\n  id\n  username\n  email\n  firstName\n  lastName\n}\n\nfragment FriendSuggestionsFragment on User {\n  friendSuggestions(first: 3) {\n    edges {\n      node {\n        id\n        ...FriendFragment\n      }\n    }\n  }\n}\n\nfragment FriendsFragment on User {\n  friends(first: 3) {\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n    edges {\n      cursor\n      node {\n        id\n        ...FriendFragment\n      }\n    }\n  }\n}\n\nfragment UserInfoFragment on User {\n  username\n  email\n  firstName\n  lastName\n}\n"
   }
 };
 })();
 
-(node as any).hash = "102f9f19b94329f34d87b8c7164c79bb";
+(node as any).hash = "f511971eb42b904ebb0f6ba6a5620b22";
 
 export default node;

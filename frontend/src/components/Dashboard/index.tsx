@@ -6,16 +6,12 @@ import Spinner from "components/common/Spinner";
 import DashboardContainer from "./DashboardContainer";
 
 function Dashboard() {
-  const [user] = useAuth();
-
-  if (!user) {
-    return null;
-  }
+  useAuth();
 
   return (
     <ErrorBoundary FallbackComponent={Failed}>
       <React.Suspense fallback={<Spinner />}>
-        <DashboardContainer user={user} />
+        <DashboardContainer />
       </React.Suspense>
     </ErrorBoundary>
   );

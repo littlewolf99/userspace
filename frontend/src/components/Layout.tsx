@@ -11,8 +11,8 @@ import FriendSuggestions from "./Friends/FriendSuggestions";
 const { Header, Content } = Layout;
 
 const userQuery = graphql`
-  query LayoutQuery($id: ID!) {
-    user(id: $id) {
+  query LayoutQuery {
+    currentUser {
       ...UserInfoFragment
       ...FriendsFragment
       ...FriendSuggestionsFragment
@@ -33,10 +33,8 @@ const containerStyle = {
 const centeredLayoutPaths = ["/signin", "/signup"];
 
 const AppLayout: React.FC = () => {
-  const [user] = useAuth();
-  const data = useLazyLoadQuery<LayoutQuery>(userQuery, {
-    id: user?.id || "0",
-  });
+  useAuth();
+  const data = useLazyLoadQuery<LayoutQuery>(userQuery, {});
   const location = useLocation();
   const isCenteredLayout =
     centeredLayoutPaths.indexOf(location.pathname.trim().toLowerCase()) >= 0;
@@ -62,9 +60,9 @@ const AppLayout: React.FC = () => {
             {!isCenteredLayout && (
               <Col xs={24} sm={24} md={8}>
                 <Space size={15} direction="vertical" style={{ width: "100%" }}>
-                  <UserInfo user={data.user} />
-                  <Friends user={data.user} />
-                  <FriendSuggestions user={data.user} />
+                  <UserInfo user={data.currentUser} />
+                  <Friends user={data.currentUser} />
+                  <FriendSuggestions user={data.currentUser} />
                 </Space>
               </Col>
             )}

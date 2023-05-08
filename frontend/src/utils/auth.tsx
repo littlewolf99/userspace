@@ -1,17 +1,9 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 
-export interface User {
-  id: string;
-  username: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-}
+type SetToken = React.Dispatch<React.SetStateAction<string | null>>;
 
-type SetUser = React.Dispatch<React.SetStateAction<User | null>>;
-
-const AuthContext = React.createContext<[User | null, SetUser]>([
+const AuthContext = React.createContext<[string | null, SetToken]>([
   null,
   () => {},
 ]);
@@ -19,46 +11,42 @@ const AuthContext = React.createContext<[User | null, SetUser]>([
 export const AuthContextProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
-  const [user, setUser] = React.useState<User | null>(null);
-
-  // TODO: get current signed-in user
+  const [token, setToken] = React.useState<string | null>(
+    localStorage.getItem("authtoken")
+  );
 
   return (
-    <AuthContext.Provider value={[user, setUser]}>
+    <AuthContext.Provider value={[token, setToken]}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-type UseAuth = [User | null, SetUser];
+type UseAuth = [string | null, SetToken];
 
 export const useAuth = (signInRequired: boolean = true): UseAuth => {
-  const [user, setUser] = React.useContext(AuthContext);
+  const [token, setToken] = React.useContext(AuthContext);
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if (!user) {
-      const token = localStorage.getItem("authtoken");
-      if (!token && signInRequired) {
-        navigate("/signin");
-      }
+    if (!token && signInRequired) {
+      navigate("/signin");
     }
-  }, [user, navigate, signInRequired]);
+  }, [token, navigate, signInRequired]);
 
-  return [user, setUser];
+  return [token, setToken];
 };
 
 export const useGuestMode = () => {
-  const [user] = React.useContext(AuthContext);
+  const [token] = React.useContext(AuthContext);
   const navigate = useNavigate();
-  const token = localStorage.getItem("authtoken");
-  const isGuest = !user && !token;
+  const isGuest = !token;
 
   React.useEffect(() => {
     if (!isGuest) {
       navigate("/");
     }
-  }, [user, isGuest, navigate]);
+  }, [isGuest, navigate]);
 
   return isGuest;
 };

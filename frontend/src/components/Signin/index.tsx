@@ -5,8 +5,9 @@ import { useAuth, useGuestMode } from "utils/auth";
 import Block from "components/common/Block";
 
 const Signin: React.FC = () => {
+  const [, startNavigation] = React.useTransition();
   const [signIn, pending] = useSignIn();
-  const [, setUser] = useAuth();
+  const [, setToken] = useAuth();
   const isGuest = useGuestMode();
 
   const handleSubmit = (input: SigninData) =>
@@ -14,10 +15,17 @@ const Signin: React.FC = () => {
       variables: {
         input,
       },
+      updater(store, data) {
+        const token = data.signIn?.token;
+        if (token) {
+          store.invalidateStore();
+        }
+      },
       onCompleted(response) {
         if (response.signIn) {
-          localStorage.setItem("authtoken", response.signIn.token);
-          setUser(response.signIn.user);
+          const token = response.signIn.token;
+          localStorage.setItem("authtoken", token);
+          startNavigation(() => setToken(token));
         }
       },
     });

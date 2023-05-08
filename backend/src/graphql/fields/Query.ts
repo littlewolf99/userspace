@@ -2,6 +2,7 @@ import { BaseEntity } from "typeorm";
 import { parseGlobalID } from "../utils/id";
 import Post from "../../entities/Post";
 import User from "../../entities/User";
+import { GraphQLContext } from "../../auth";
 
 export default {
   node: async (source: any, args: { id: string }) => {
@@ -28,4 +29,7 @@ export default {
     }
     return User.findOne({ where: { id } });
   },
+
+  currentUser: async (source: any, args: any, context: GraphQLContext) =>
+    context.currentUser,
 };

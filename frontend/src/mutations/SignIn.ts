@@ -16,6 +16,6 @@ const signInMutation = graphql`
   }
 `;
 
-export default function useCreateUser() {
+export default function useSignIn() {
   return useMutation<SignInMutation>(signInMutation);
 }

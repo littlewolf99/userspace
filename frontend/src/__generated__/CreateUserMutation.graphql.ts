@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<73d92e53d3641091a400f9a03e334592>>
+ * @generated SignedSource<<392adafe8ec48dc473e8a9bd7a7e3b84>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,6 +13,7 @@ export type CreateUserInput = {
   email: string;
   firstName: string;
   lastName: string;
+  password: string;
   username: string;
 };
 export type CreateUserMutation$variables = {

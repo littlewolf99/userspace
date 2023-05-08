@@ -55,9 +55,10 @@ export default /* GraphQL */ `
 
   input CreateUserInput {
     username: String!
+    password: String!
+    email: String!
     firstName: String!
     lastName: String!
-    email: String!
   }
 
   input SignInInput {
@@ -88,6 +89,7 @@ export default /* GraphQL */ `
     node(id: ID!): Node
     users: [User]
     user(id: ID!): User
+    currentUser: User
   }
 
   type Mutation {

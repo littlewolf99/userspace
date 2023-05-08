@@ -6,6 +6,7 @@ import { createYoga } from "graphql-yoga";
 import schema from "./graphql";
 import User from "./entities/User";
 import Post from "./entities/Post";
+import { createContext } from "./auth";
 
 async function main() {
   const AppDataSource = new DataSource({
@@ -23,7 +24,10 @@ async function main() {
 
   console.log("Connection to DB established");
 
-  const yoga = createYoga({ schema });
+  const yoga = createYoga({
+    schema,
+    context: createContext,
+  });
   const server = createServer(yoga);
 
   server.listen(config.port, () => {

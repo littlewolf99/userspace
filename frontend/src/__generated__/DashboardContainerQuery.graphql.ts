@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<a6b4b2d65221c1e2465d27b6ffcbecd9>>
+ * @generated SignedSource<<63350f42c89fe544fdc8df5a5f1ce82c>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,12 +10,10 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type DashboardContainerQuery$variables = {
-  id: string;
-};
+export type DashboardContainerQuery$variables = {};
 export type DashboardContainerQuery$data = {
-  readonly user: {
-    readonly " $fragmentSpreads": FragmentRefs<"FeedFragment">;
+  readonly currentUser: {
+    readonly " $fragmentSpreads": FragmentRefs<"FeedFragment" | "PostCreateFragment">;
   };
 } | null;
 export type DashboardContainerQuery = {
@@ -26,26 +24,12 @@ export type DashboardContainerQuery = {
 const node: ConcreteRequest = (function(){
 var v0 = [
   {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "id"
-  }
-],
-v1 = [
-  {
-    "kind": "Variable",
-    "name": "id",
-    "variableName": "id"
-  }
-],
-v2 = [
-  {
     "kind": "Literal",
     "name": "first",
     "value": 10
   }
 ],
-v3 = {
+v1 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
@@ -54,7 +38,7 @@ v3 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
     "name": "DashboardContainerQuery",
@@ -63,22 +47,27 @@ return {
         "kind": "RequiredField",
         "field": {
           "alias": null,
-          "args": (v1/*: any*/),
+          "args": null,
           "concreteType": "User",
           "kind": "LinkedField",
-          "name": "user",
+          "name": "currentUser",
           "plural": false,
           "selections": [
             {
               "args": null,
               "kind": "FragmentSpread",
               "name": "FeedFragment"
+            },
+            {
+              "args": null,
+              "kind": "FragmentSpread",
+              "name": "PostCreateFragment"
             }
           ],
           "storageKey": null
         },
         "action": "NONE",
-        "path": "user"
+        "path": "currentUser"
       }
     ],
     "type": "Query",
@@ -86,21 +75,21 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [],
     "kind": "Operation",
     "name": "DashboardContainerQuery",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": null,
         "concreteType": "User",
         "kind": "LinkedField",
-        "name": "user",
+        "name": "currentUser",
         "plural": false,
         "selections": [
           {
             "alias": null,
-            "args": (v2/*: any*/),
+            "args": (v0/*: any*/),
             "concreteType": "PostConnection",
             "kind": "LinkedField",
             "name": "feed",
@@ -122,7 +111,7 @@ return {
                     "name": "node",
                     "plural": false,
                     "selections": [
-                      (v3/*: any*/),
+                      (v1/*: any*/),
                       {
                         "alias": null,
                         "args": null,
@@ -145,7 +134,7 @@ return {
                         "name": "user",
                         "plural": false,
                         "selections": [
-                          (v3/*: any*/),
+                          (v1/*: any*/),
                           {
                             "alias": null,
                             "args": null,
@@ -220,30 +209,30 @@ return {
           },
           {
             "alias": null,
-            "args": (v2/*: any*/),
+            "args": (v0/*: any*/),
             "filters": null,
             "handle": "connection",
             "key": "FeedFragment__feed",
             "kind": "LinkedHandle",
             "name": "feed"
           },
-          (v3/*: any*/)
+          (v1/*: any*/)
         ],
         "storageKey": null
       }
     ]
   },
   "params": {
-    "cacheID": "f5bfeb6bbb134cd66af9daf1b2aa845e",
+    "cacheID": "008b5e175fee7dafdaab9b61f06122b1",
     "id": null,
     "metadata": {},
     "name": "DashboardContainerQuery",
     "operationKind": "query",
-    "text": "query DashboardContainerQuery(\n  $id: ID!\n) {\n  user(id: $id) {\n    ...FeedFragment\n    id\n  }\n}\n\nfragment FeedFragment on User {\n  feed(first: 10) {\n    edges {\n      node {\n        id\n        ...FeedItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment FeedItemFragment on Post {\n  id\n  content\n  postedAt\n  user {\n    id\n    username\n    firstName\n    lastName\n  }\n}\n"
+    "text": "query DashboardContainerQuery {\n  currentUser {\n    ...FeedFragment\n    ...PostCreateFragment\n    id\n  }\n}\n\nfragment FeedFragment on User {\n  feed(first: 10) {\n    edges {\n      node {\n        id\n        ...FeedItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment FeedItemFragment on Post {\n  id\n  content\n  postedAt\n  user {\n    id\n    username\n    firstName\n    lastName\n  }\n}\n\nfragment PostCreateFragment on User {\n  id\n}\n"
   }
 };
 })();
 
-(node as any).hash = "3e5f7b2c2605fa237e386eb91ed4a3b3";
+(node as any).hash = "7ea9d0db9cfe16881a650db097387f62";
 
 export default node;

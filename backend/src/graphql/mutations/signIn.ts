@@ -1,7 +1,9 @@
 /// <reference types="../../@types/global" />
 
-import { getSession } from "../../neo4j/connection";
+import { compare } from "bcryptjs";
+import { sign } from "jsonwebtoken";
 import User from "../../entities/User";
+import config from "../../config";
 
 interface SignInInput {
   username: string;
@@ -26,8 +28,15 @@ export default async function signIn(
   });
 
   if (!user) {
-    throw new Error("Failed to login");
+    throw new Error("Username or password is not correct.");
   }
 
-  return { user, token: "" };
+  const valid = await compare(signInData.password, user.password);
+  if (!valid) {
+    throw new Error("Username or password is not correct.");
+  }
+
+  const token = sign({ userId: user.id }, config.appSecret);
+
+  return { user, token };
 }
