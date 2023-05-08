@@ -2,6 +2,7 @@
 
 import { QueryResult, Node } from "neo4j-driver";
 import { getSession } from "../../neo4j/connection";
+import { createWhere } from "../../neo4j/db";
 import doPaginate from "../utils/pagination";
 import { createIDGenerator } from "../utils/id";
 import User from "../../entities/User";
@@ -40,9 +41,10 @@ export default {
         }
 
         const session = getSession(context);
-        const where = startKey
-          ? ` WHERE friend.${keyField} ${comp} $startKey`
-          : "";
+        const conditions: string[] = [];
+        if (startKey) {
+          conditions.push(`friend.${keyField} ${comp} $startKey`);
+        }
         const result = await session.executeRead<
           QueryResult<{
             friend: Node<number, UserData>;
@@ -52,7 +54,7 @@ export default {
             [
               "MATCH (user:USER {id: $id})",
               "MATCH (user)-[:FRIEND]-(friend:USER)",
-              where,
+              createWhere(conditions),
               `RETURN friend ORDER BY friend.${keyField} ${direction}`,
               `LIMIT ${limit}`,
             ].join("\n"),
@@ -85,9 +87,10 @@ export default {
         }
 
         const session = getSession(context);
-        const where = startKey
-          ? ` WHERE suggestion.${keyField} ${comp} $startKey`
-          : "";
+        const conditions = ["NOT ((user)-[:FRIEND]-(suggestion:USER))"];
+        if (startKey) {
+          conditions.push(` suggestion.${keyField} ${comp} $startKey`);
+        }
         const result = await session.executeRead<
           QueryResult<{
             suggestion: Node<number, UserData>;
@@ -97,8 +100,8 @@ export default {
             [
               "MATCH (user:USER {id: $id})",
               "MATCH (user)-[:FRIEND]-(:USER)-[:FRIEND]-(suggestion:USER)",
-              where,
-              `RETURN suggestion ORDER BY suggestion.${keyField} ${direction}`,
+              createWhere(conditions),
+              `RETURN DISTINCT suggestion ORDER BY suggestion.${keyField} ${direction}`,
               `LIMIT ${limit}`,
             ].join("\n"),
             variables
@@ -130,9 +133,10 @@ export default {
         }
 
         const session = getSession(context);
-        const where = startKey
-          ? ` WHERE post.${keyField} ${comp} $startKey`
-          : "";
+        const conditions: string[] = [];
+        if (startKey) {
+          conditions.push(`post.${keyField} ${comp} $startKey`);
+        }
         const result = await session.executeRead<
           QueryResult<{
             post: Node<number, PostData>;
@@ -142,7 +146,7 @@ export default {
             [
               "MATCH (user:USER {id: $userId})",
               "MATCH (user)-[:FRIEND]-(:USER)<-[:POSTED_BY]-(post:POST)",
-              where,
+              createWhere(conditions),
               `RETURN post ORDER BY post.${keyField} ${direction}`,
               `LIMIT ${limit}`,
             ].join("\n"),
