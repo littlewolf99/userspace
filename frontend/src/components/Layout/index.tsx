@@ -1,24 +1,13 @@
 import * as React from "react";
-import { graphql, useLazyLoadQuery } from "react-relay";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { Col, Layout, Menu, Row, Space } from "antd";
-import UserInfo from "./UserInfo";
-import Friends from "./Friends";
+import { Col, Layout, Menu, Row } from "antd";
+import { ErrorBoundary } from "react-error-boundary";
 import { useAuth } from "utils/auth";
-import { LayoutQuery } from "__generated__/LayoutQuery.graphql";
-import FriendSuggestions from "./Friends/FriendSuggestions";
+import Failed from "components/common/Failed";
+import Spinner from "components/common/Spinner";
+import Sidebar from "./Sidebar";
 
 const { Header, Content } = Layout;
-
-const userQuery = graphql`
-  query LayoutQuery {
-    currentUser {
-      ...UserInfoFragment
-      ...FriendsFragment
-      ...FriendSuggestionsFragment
-    }
-  }
-`;
 
 const contentStyle = {
   padding: "20px 25px",
@@ -34,7 +23,6 @@ const centeredLayoutPaths = ["/signin", "/signup"];
 
 const AppLayout: React.FC = () => {
   useAuth();
-  const data = useLazyLoadQuery<LayoutQuery>(userQuery, {});
   const location = useLocation();
   const isCenteredLayout =
     centeredLayoutPaths.indexOf(location.pathname.trim().toLowerCase()) >= 0;
@@ -59,11 +47,11 @@ const AppLayout: React.FC = () => {
           <Row gutter={16}>
             {!isCenteredLayout && (
               <Col xs={24} sm={24} md={8}>
-                <Space size={15} direction="vertical" style={{ width: "100%" }}>
-                  <UserInfo user={data.currentUser} />
-                  <Friends user={data.currentUser} />
-                  <FriendSuggestions user={data.currentUser} />
-                </Space>
+                <ErrorBoundary FallbackComponent={Failed}>
+                  <React.Suspense fallback={<Spinner />}>
+                    <Sidebar />
+                  </React.Suspense>
+                </ErrorBoundary>
               </Col>
             )}
 

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6469cc2f84bcd2f8c54114bd62494926>>
+ * @generated SignedSource<<e1543a2ee3f6d48092d025bc3a9abcea>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,15 +10,15 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type LayoutQuery$variables = {};
-export type LayoutQuery$data = {
+export type SidebarQuery$variables = {};
+export type SidebarQuery$data = {
   readonly currentUser: {
     readonly " $fragmentSpreads": FragmentRefs<"FriendSuggestionsFragment" | "FriendsFragment" | "UserInfoFragment">;
   } | null;
 };
-export type LayoutQuery = {
-  response: LayoutQuery$data;
-  variables: LayoutQuery$variables;
+export type SidebarQuery = {
+  response: SidebarQuery$data;
+  variables: SidebarQuery$variables;
 };
 
 const node: ConcreteRequest = (function(){
@@ -85,7 +85,7 @@ return {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "LayoutQuery",
+    "name": "SidebarQuery",
     "selections": [
       {
         "alias": null,
@@ -121,7 +121,7 @@ return {
   "operation": {
     "argumentDefinitions": [],
     "kind": "Operation",
-    "name": "LayoutQuery",
+    "name": "SidebarQuery",
     "selections": [
       {
         "alias": null,
@@ -220,16 +220,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f25f8ba214ba36f54b4c20eb96da5c61",
+    "cacheID": "da6872df5fbfce8b4ebd96f6aa3a4183",
     "id": null,
     "metadata": {},
-    "name": "LayoutQuery",
+    "name": "SidebarQuery",
     "operationKind": "query",
-    "text": "query LayoutQuery {\n  currentUser {\n    ...UserInfoFragment\n    ...FriendsFragment\n    ...FriendSuggestionsFragment\n    id\n  }\n}\n\nfragment FriendFragment on User {\n  id\n  username\n  email\n  firstName\n  lastName\n}\n\nfragment FriendSuggestionsFragment on User {\n  friendSuggestions(first: 3) {\n    edges {\n      node {\n        id\n        ...FriendFragment\n      }\n    }\n  }\n}\n\nfragment FriendsFragment on User {\n  friends(first: 3) {\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n    edges {\n      cursor\n      node {\n        id\n        ...FriendFragment\n      }\n    }\n  }\n}\n\nfragment UserInfoFragment on User {\n  username\n  email\n  firstName\n  lastName\n}\n"
+    "text": "query SidebarQuery {\n  currentUser {\n    ...UserInfoFragment\n    ...FriendsFragment\n    ...FriendSuggestionsFragment\n    id\n  }\n}\n\nfragment FriendFragment on User {\n  id\n  username\n  email\n  firstName\n  lastName\n}\n\nfragment FriendSuggestionsFragment on User {\n  friendSuggestions(first: 3) {\n    edges {\n      node {\n        id\n        ...FriendFragment\n      }\n    }\n  }\n}\n\nfragment FriendsFragment on User {\n  friends(first: 3) {\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n    edges {\n      cursor\n      node {\n        id\n        ...FriendFragment\n      }\n    }\n  }\n}\n\nfragment UserInfoFragment on User {\n  username\n  email\n  firstName\n  lastName\n}\n"
   }
 };
 })();
 
-(node as any).hash = "f511971eb42b904ebb0f6ba6a5620b22";
+(node as any).hash = "d445de7db56b90e4ae3beb44077c1472";
 
 export default node;
