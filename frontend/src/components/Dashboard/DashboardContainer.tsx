@@ -1,11 +1,11 @@
 import * as React from "react";
-import { graphql, useLazyLoadQuery } from "react-relay";
+import { PreloadedQuery, graphql, usePreloadedQuery } from "react-relay";
 import { Space } from "antd";
 import { DashboardContainerQuery } from "__generated__/DashboardContainerQuery.graphql";
 import PostCreate from "./PostCreate";
 import Feed from "./Feed";
 
-const dashboardContainerQuery = graphql`
+export const dashboardContainerQuery = graphql`
   query DashboardContainerQuery {
     currentUser @required(action: NONE) {
       ...FeedFragment
@@ -14,11 +14,14 @@ const dashboardContainerQuery = graphql`
   }
 `;
 
-const DashboardContainer: React.FC = () => {
-  const data = useLazyLoadQuery<DashboardContainerQuery>(
-    dashboardContainerQuery,
-    {}
-  );
+interface DashboardContainerProps {
+  queryRef: PreloadedQuery<DashboardContainerQuery>;
+}
+
+const DashboardContainer: React.FC<DashboardContainerProps> = ({
+  queryRef,
+}) => {
+  const data = usePreloadedQuery(dashboardContainerQuery, queryRef);
 
   if (!data) {
     return null;

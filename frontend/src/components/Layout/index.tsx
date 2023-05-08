@@ -1,14 +1,21 @@
 import * as React from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLoaderData, useLocation } from "react-router-dom";
+import { PreloadedQuery, loadQuery } from "react-relay";
 import { Col, Layout, Row, notification } from "antd";
 import { ErrorBoundary } from "react-error-boundary";
+import { RelayEnvironment } from "RelayEnvironment";
 import { useAuth } from "utils/auth";
 import Failed from "components/common/Failed";
 import Spinner from "components/common/Spinner";
-import Sidebar from "./Sidebar";
+import Sidebar, { sidebarQuery } from "./Sidebar";
 import Header from "./Header";
+import { SidebarQuery } from "__generated__/SidebarQuery.graphql";
 
 const { Content } = Layout;
+
+export const loader = async () => {
+  return loadQuery(RelayEnvironment, sidebarQuery, {});
+};
 
 const contentStyle = {
   padding: "20px 25px",
@@ -23,6 +30,7 @@ const containerStyle = {
 const centeredLayoutPaths = ["/signin", "/signup"];
 
 const AppLayout: React.FC = () => {
+  const queryRef = useLoaderData() as PreloadedQuery<SidebarQuery>;
   useAuth();
   const [, contextHolder] = notification.useNotification();
   const location = useLocation();
@@ -40,7 +48,7 @@ const AppLayout: React.FC = () => {
               <Col xs={24} sm={24} md={8}>
                 <ErrorBoundary FallbackComponent={Failed}>
                   <React.Suspense fallback={<Spinner />}>
-                    <Sidebar />
+                    <Sidebar queryRef={queryRef} />
                   </React.Suspense>
                 </ErrorBoundary>
               </Col>

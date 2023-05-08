@@ -1,5 +1,5 @@
 import * as React from "react";
-import { graphql, useLazyLoadQuery } from "react-relay";
+import { PreloadedQuery, graphql, usePreloadedQuery } from "react-relay";
 import { Space } from "antd";
 import { useAuth } from "utils/auth";
 import UserInfo from "../UserInfo";
@@ -7,7 +7,7 @@ import Friends from "../Friends";
 import FriendSuggestions from "../Friends/FriendSuggestions";
 import { SidebarQuery } from "__generated__/SidebarQuery.graphql";
 
-const userQuery = graphql`
+export const sidebarQuery = graphql`
   query SidebarQuery {
     currentUser {
       ...UserInfoFragment
@@ -17,9 +17,13 @@ const userQuery = graphql`
   }
 `;
 
-const Sidebar: React.FC = () => {
+interface SidebarProps {
+  queryRef: PreloadedQuery<SidebarQuery>;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ queryRef }) => {
   useAuth();
-  const data = useLazyLoadQuery<SidebarQuery>(userQuery, {});
+  const data = usePreloadedQuery(sidebarQuery, queryRef);
 
   return (
     <Space size={15} direction="vertical" style={{ width: "100%" }}>

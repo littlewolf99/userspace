@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
-import Layout from "components/Layout";
-import Dashboard from "components/Dashboard";
+import Layout, { loader as layoutLoader } from "components/Layout";
+import Dashboard, { loader as dashboardLoader } from "components/Dashboard";
 import Signup from "components/Signup";
 import Signin from "components/Signin";
 
@@ -8,10 +8,12 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    loader: layoutLoader,
     children: [
       {
         path: "/",
         element: <Dashboard />,
+        loader: dashboardLoader,
       },
       {
         path: "/signup",
