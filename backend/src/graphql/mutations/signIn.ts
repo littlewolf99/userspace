@@ -1,5 +1,6 @@
 /// <reference types="../../@types/global" />
 
+import { GraphQLError } from "graphql";
 import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import User from "../../entities/User";
@@ -16,7 +17,7 @@ interface SignInPayload {
 }
 
 export default async function signIn(
-  source: any,
+  source: unknown,
   args: MutationInput<SignInInput>
 ): Promise<SignInPayload> {
   const signInData = args.input;
@@ -28,12 +29,12 @@ export default async function signIn(
   });
 
   if (!user) {
-    throw new Error("Username or password is not correct.");
+    throw new GraphQLError("Username or password is not correct.");
   }
 
   const valid = await compare(signInData.password, user.password);
   if (!valid) {
-    throw new Error("Username or password is not correct.");
+    throw new GraphQLError("Username or password is not correct.");
   }
 
   const token = sign({ userId: user.id }, config.appSecret);

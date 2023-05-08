@@ -12,7 +12,7 @@ interface ConnectUserPayload {
 }
 
 export default async function connectUser(
-  source: any,
+  source: unknown,
   args: MutationInput<ConnectUserInput>,
   context: any
 ): Promise<ConnectUserPayload> {

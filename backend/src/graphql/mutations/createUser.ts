@@ -14,7 +14,7 @@ interface CreateUserInput {
 }
 
 export default async function createUser(
-  source: any,
+  source: unknown,
   args: MutationInput<CreateUserInput>,
   context: any
 ): Promise<Edge<User>> {
