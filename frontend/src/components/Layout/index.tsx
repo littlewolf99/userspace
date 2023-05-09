@@ -1,21 +1,16 @@
 import * as React from "react";
 import { Outlet, useLoaderData, useLocation } from "react-router-dom";
-import { PreloadedQuery, loadQuery } from "react-relay";
+import { PreloadedQuery } from "react-relay";
 import { Col, Layout, Row, notification } from "antd";
 import { ErrorBoundary } from "react-error-boundary";
-import { RelayEnvironment } from "RelayEnvironment";
 import { useAuth } from "utils/auth";
 import Failed from "components/common/Failed";
 import Spinner from "components/common/Spinner";
-import Sidebar, { sidebarQuery } from "./Sidebar";
+import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { SidebarQuery } from "__generated__/SidebarQuery.graphql";
 
 const { Content } = Layout;
-
-export const loader = async () => {
-  return loadQuery(RelayEnvironment, sidebarQuery, {});
-};
 
 const contentStyle = {
   padding: "20px 25px",
