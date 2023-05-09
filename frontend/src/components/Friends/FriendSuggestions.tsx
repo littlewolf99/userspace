@@ -1,5 +1,5 @@
 import * as React from "react";
-import { graphql, useFragment, usePaginationFragment } from "react-relay";
+import { graphql, usePaginationFragment } from "react-relay";
 import { Button, Space, Typography } from "antd";
 import Block from "../common/Block";
 import { FriendSuggestionsFragment$key } from "__generated__/FriendSuggestionsFragment.graphql";
