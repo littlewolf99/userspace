@@ -29,7 +29,7 @@
     "test": "craco test",
     "eject": "craco eject",
     "relay": "relay-compiler --watch",
-    "analyze": "source-map-explorer 'build/static/js/*.js'"
+    "analyze": "npm run build -- --stats && webpack-bundle-analyzer ./build/bundle-stats.json"
   },
   "eslintConfig": {
     "extends": [
@@ -54,6 +54,6 @@
     "@types/relay-runtime": "^14.1.10",
     "babel-plugin-relay": "^15.0.0",
     "relay-compiler": "^15.0.0",
-    "source-map-explorer": "^2.5.3"
+    "webpack-bundle-analyzer": "^4.8.0"
   }
 }
