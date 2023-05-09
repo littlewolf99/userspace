@@ -3,9 +3,11 @@ import config from "./config";
 import User from "./entities/User";
 import { YogaInitialContext } from "graphql-yoga";
 
-export async function authenticateUser(request: Request): Promise<User | null> {
-  const header = request.headers.get("authorization");
-  if (header !== null) {
+export async function authenticateUser(
+  request?: Request
+): Promise<User | null> {
+  const header = request?.headers.get("authorization");
+  if (header) {
     const token = header.split(" ")[1];
     const tokenPayload = verify(token, config.appSecret) as JwtPayload;
     const userId = tokenPayload.userId;

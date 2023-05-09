@@ -5,6 +5,7 @@ import { FeedFragment$key } from "__generated__/FeedFragment.graphql";
 import PostCreate from "./PostCreate";
 import FeedItem from "./FeedItem";
 import { DashboardContainerQuery } from "__generated__/DashboardContainerQuery.graphql";
+import usePostCreatedSubscription from "subscriptions/PostCreated";
 
 const pageSize = 10;
 
@@ -36,9 +37,11 @@ const Feed: React.FC<FeedProps> = (props) => {
     FeedFragment$key
   >(feedFragment, props.user);
 
+  usePostCreatedSubscription([data.id]);
+
   return (
     <Space size={15} direction="vertical" style={{ width: "100%" }}>
-      <PostCreate feedConnectionId={data.id} />
+      <PostCreate />
 
       {(data.feed.edges || []).map((postEdge) => (
         <FeedItem key={postEdge?.node?.id} post={postEdge?.node || null} />

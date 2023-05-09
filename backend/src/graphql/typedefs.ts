@@ -97,4 +97,8 @@ export default /* GraphQL */ `
     connectUser(input: ConnectUserInput): ConnectUserPayload
     createPost(input: CreatePostInput): PostEdge
   }
+
+  type Subscription {
+    postCreated: PostEdge!
+  }
 `;

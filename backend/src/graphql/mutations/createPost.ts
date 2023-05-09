@@ -5,6 +5,7 @@ import { getSession } from "../../neo4j/connection";
 import Post from "../../entities/Post";
 import { createEdge } from "../utils/pagination";
 import { GraphQLContext } from "../../auth";
+import pubSub from "../pubsub";
 
 interface CreatePostInput {
   userId: string;
@@ -43,5 +44,8 @@ export default async function createPost(
     )
   );
 
-  return createEdge(post, "postedAt");
+  const postEdge = createEdge(post, "postedAt");
+  pubSub.publish("postCreated", postEdge);
+
+  return postEdge;
 }
