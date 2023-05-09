@@ -4,10 +4,10 @@ import { GraphQLError } from "graphql";
 import { GraphQLContext } from "../../auth";
 import doPaginate from "../utils/pagination";
 import { createIDGenerator } from "../utils/id";
-import { getPostLoader } from "../dataloaders";
 import User from "../../entities/User";
 import Friendship from "../../entities/Friendship";
-import { And, In } from "typeorm";
+import Post from "../../entities/Post";
+import { In, LessThan, MoreThan } from "typeorm";
 
 interface UserData {
   id: number;
@@ -34,8 +34,7 @@ export default {
     doPaginate(
       { args, allowedKeyFields: ["id"] },
       async (isForward, keyField, startKey, direction, comp, limit) => {
-        const user = context.currentUser;
-        if (!user) {
+        if (!context.currentUser || context.currentUser.id !== user.id) {
           throw new GraphQLError("Not authorized.");
         }
 
@@ -79,47 +78,39 @@ export default {
   feed: async (
     user: User,
     args: PaginationParams,
-    context: any
+    context: GraphQLContext
   ): Promise<Connection<PostData>> =>
     doPaginate(
       { args, allowedKeyFields: ["postedAt"], isAscendingForward: false },
       async (isForward, keyField, startKey, direction, comp, limit) => {
-        // const variables: QueryVariables = {
-        //   userId: user.id,
-        // };
-        // if (startKey) {
-        //   variables.startKey = startKey;
-        // }
+        if (!context.currentUser || context.currentUser.id !== user.id) {
+          throw new GraphQLError("Not authorized.");
+        }
 
-        // const session = getSession(context);
-        // const conditions: string[] = [];
-        // if (startKey) {
-        //   conditions.push(`post.${keyField} ${comp} $startKey`);
-        // }
-        // const result = await session.executeRead<
-        //   QueryResult<{
-        //     post: Node<number, PostData>;
-        //   }>
-        // >((txc) =>
-        //   txc.run(
-        //     [
-        //       "MATCH (user:USER {id: $userId})",
-        //       "MATCH (user)-[:FRIEND*0..1]-(:USER)<-[:POSTED_BY]-(post:POST)",
-        //       createWhere(conditions),
-        //       `RETURN post ORDER BY post.${keyField} ${direction}`,
-        //       `LIMIT ${limit}`,
-        //     ].join("\n"),
-        //     variables
-        //   )
-        // );
-        // session.close();
+        const friendShips = await Friendship.findBy({
+          user2: { id: user.id },
+        });
 
-        // const postLoader = getPostLoader(session);
-        // const postIds = result.records.map(
-        //   (record) => record.get("post").properties.id
-        // );
-        // return Promise.all(postIds.map((id) => postLoader.load(id)));
-        return [];
+        const ids = [user.id].concat(
+          friendShips.map((friendship) => friendship.user1.id)
+        );
+        const where: { [key: string]: any } = {
+          user: { id: In(ids) },
+        };
+        if (startKey) {
+          const op = comp == ">" ? MoreThan : LessThan;
+          where[keyField] = op(startKey);
+        }
+
+        const posts = await Post.find({
+          where,
+          take: limit,
+          order: {
+            [keyField]: direction,
+          },
+        });
+
+        return posts;
       }
     ),
 };
