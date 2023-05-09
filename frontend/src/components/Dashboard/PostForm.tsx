@@ -26,7 +26,11 @@ const PostForm: React.FC<PostFormProps> = ({ pending, onSubmit }) => (
     style={{ width: "100%", display: "flex" }}
     onFinish={onSubmit}
   >
-    <Form.Item name="content" rules={rules.content} style={{ flex: "1 1 0" }}>
+    <Form.Item
+      name="content"
+      rules={rules.content}
+      style={{ flex: "1 1 0", marginBottom: 0 }}
+    >
       <Input />
     </Form.Item>
 

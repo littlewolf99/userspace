@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<8e4b30d07354dbbec21fe4799bfadb71>>
+ * @generated SignedSource<<47bc54bced6632c8570bd4b8a1fef308>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -14,11 +14,11 @@ export type CreatePostInput = {
   content: string;
 };
 export type CreatePostMutation$variables = {
+  connections: ReadonlyArray<string>;
   input: CreatePostInput;
 };
 export type CreatePostMutation$data = {
   readonly createPost: {
-    readonly cursor: string;
     readonly node: {
       readonly " $fragmentSpreads": FragmentRefs<"FeedItemFragment">;
     } | null;
@@ -30,27 +30,23 @@ export type CreatePostMutation = {
 };
 
 const node: ConcreteRequest = (function(){
-var v0 = [
-  {
-    "defaultValue": null,
-    "kind": "LocalArgument",
-    "name": "input"
-  }
-],
-v1 = [
+var v0 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "connections"
+},
+v1 = {
+  "defaultValue": null,
+  "kind": "LocalArgument",
+  "name": "input"
+},
+v2 = [
   {
     "kind": "Variable",
     "name": "input",
     "variableName": "input"
   }
 ],
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "cursor",
-  "storageKey": null
-},
 v3 = {
   "alias": null,
   "args": null,
@@ -60,20 +56,22 @@ v3 = {
 };
 return {
   "fragment": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v0/*: any*/),
+      (v1/*: any*/)
+    ],
     "kind": "Fragment",
     "metadata": null,
     "name": "CreatePostMutation",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v2/*: any*/),
         "concreteType": "PostEdge",
         "kind": "LinkedField",
         "name": "createPost",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -99,19 +97,21 @@ return {
   },
   "kind": "Request",
   "operation": {
-    "argumentDefinitions": (v0/*: any*/),
+    "argumentDefinitions": [
+      (v1/*: any*/),
+      (v0/*: any*/)
+    ],
     "kind": "Operation",
     "name": "CreatePostMutation",
     "selections": [
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": (v2/*: any*/),
         "concreteType": "PostEdge",
         "kind": "LinkedField",
         "name": "createPost",
         "plural": false,
         "selections": [
-          (v2/*: any*/),
           {
             "alias": null,
             "args": null,
@@ -173,20 +173,36 @@ return {
           }
         ],
         "storageKey": null
+      },
+      {
+        "alias": null,
+        "args": (v2/*: any*/),
+        "filters": null,
+        "handle": "prependEdge",
+        "key": "",
+        "kind": "LinkedHandle",
+        "name": "createPost",
+        "handleArgs": [
+          {
+            "kind": "Variable",
+            "name": "connections",
+            "variableName": "connections"
+          }
+        ]
       }
     ]
   },
   "params": {
-    "cacheID": "9aaf0e8d98af32174d7b7046d7fdb8f7",
+    "cacheID": "a67e86cc8f60264cbca132373c4185ce",
     "id": null,
     "metadata": {},
     "name": "CreatePostMutation",
     "operationKind": "mutation",
-    "text": "mutation CreatePostMutation(\n  $input: CreatePostInput!\n) {\n  createPost(input: $input) {\n    cursor\n    node {\n      ...FeedItemFragment\n      id\n    }\n  }\n}\n\nfragment FeedItemFragment on Post {\n  id\n  content\n  postedAt\n  user {\n    id\n    username\n    firstName\n    lastName\n  }\n}\n"
+    "text": "mutation CreatePostMutation(\n  $input: CreatePostInput!\n) {\n  createPost(input: $input) {\n    node {\n      ...FeedItemFragment\n      id\n    }\n  }\n}\n\nfragment FeedItemFragment on Post {\n  id\n  content\n  postedAt\n  user {\n    id\n    username\n    firstName\n    lastName\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "3af1db14c20f7f20a55ba06221478a9c";
+(node as any).hash = "61f055e4195e488d14043bf0c002eba5";
 
 export default node;

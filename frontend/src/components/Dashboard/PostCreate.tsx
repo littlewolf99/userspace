@@ -2,13 +2,24 @@ import * as React from "react";
 import Block from "components/common/Block";
 import PostForm, { PostData } from "./PostForm";
 import useCreatePost from "mutations/CreatePost";
+import { ConnectionHandler } from "relay-runtime";
 
-const PostCreate: React.FC = () => {
+interface PostCreateProps {
+  feedConnectionId: string;
+}
+
+const PostCreate: React.FC<PostCreateProps> = ({ feedConnectionId }) => {
   const [createPost, pending] = useCreatePost();
 
   const handleSubmit = (input: PostData) => {
+    const connectionId = ConnectionHandler.getConnectionID(
+      feedConnectionId,
+      "FeedFragment__feed"
+    );
+
     createPost({
       variables: {
+        connections: [connectionId],
         input: {
           ...input,
         },
