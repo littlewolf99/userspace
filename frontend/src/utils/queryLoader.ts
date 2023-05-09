@@ -7,11 +7,16 @@ type QueryStore = {
   [key: string]: QueryReference;
 };
 
+type LoaderModule = {
+  default: () => Promise<QueryReference>;
+};
+
 const store: QueryStore = {};
 
 const loader = (key: string, importLoader: () => Promise<any>) => {
   return async () => {
-    const actualLoader: () => Promise<QueryReference> = await importLoader();
+    const loaderModule: LoaderModule = await importLoader();
+    const actualLoader = loaderModule.default;
 
     if (store[key]) {
       store[key].dispose();
