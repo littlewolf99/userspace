@@ -3,9 +3,11 @@ import {
   Column,
   Entity,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import Post from "./Post";
+import Friendship from "./Friendship";
 
 @Entity()
 export default class User extends BaseEntity {

@@ -6,9 +6,10 @@ import { createYoga } from "graphql-yoga";
 import { WebSocketServer } from "ws";
 import { useServer } from "graphql-ws/lib/use/ws";
 import schema from "./graphql";
+import { createContext } from "./auth";
 import User from "./entities/User";
 import Post from "./entities/Post";
-import { createContext } from "./auth";
+import Friendship from "./entities/Friendship";
 
 async function main() {
   const AppDataSource = new DataSource({
@@ -18,7 +19,7 @@ async function main() {
     username: config.pgUsername,
     password: config.pgPassword,
     database: config.pgDatabase,
-    entities: [User, Post],
+    entities: [User, Post, Friendship],
     synchronize: true,
   });
 

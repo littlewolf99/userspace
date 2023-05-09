@@ -29,7 +29,7 @@ type FetcherFn<T> = (
   isForward: boolean,
   keyField: string,
   startKey: string | number,
-  direction: string,
+  direction: "ASC" | "DESC",
   comp: string,
   limit: number
 ) => Promise<T[]>;
@@ -55,7 +55,8 @@ const doPaginate = async <T extends BaseNode>(
     (keyField && allowedKeyFields.indexOf(keyField) >= 0 ? keyField : "") ||
     allowedKeyFields[0];
 
-  const direction = isAscendingForward === isForward ? "ASC" : "DESC";
+  const direction: "ASC" | "DESC" =
+    isAscendingForward === isForward ? "ASC" : "DESC";
   const comp = isAscendingForward === isForward ? ">" : "<";
   const limit = Math.min(100, args.first);
 
