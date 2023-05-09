@@ -145,7 +145,7 @@ export default {
           txc.run(
             [
               "MATCH (user:USER {id: $userId})",
-              "MATCH (user)-[:FRIEND]-(:USER)<-[:POSTED_BY]-(post:POST)",
+              "MATCH (user)-[:FRIEND*0..1]-(:USER)<-[:POSTED_BY]-(post:POST)",
               createWhere(conditions),
               `RETURN post ORDER BY post.${keyField} ${direction}`,
               `LIMIT ${limit}`,
