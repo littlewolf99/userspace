@@ -1,7 +1,7 @@
 import * as React from "react";
 import { graphql, useFragment } from "react-relay";
 import { Avatar, Space, Typography } from "antd";
-import Block from "./common/Block";
+import Block from "../common/Block";
 import { UserInfoFragment$key } from "__generated__/UserInfoFragment.graphql";
 
 const userInfoFragment = graphql`

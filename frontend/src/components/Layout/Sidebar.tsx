@@ -2,7 +2,7 @@ import * as React from "react";
 import { PreloadedQuery, graphql, usePreloadedQuery } from "react-relay";
 import { Space } from "antd";
 import { useAuth } from "utils/auth";
-import UserInfo from "../UserInfo";
+import UserInfo from "./UserInfo";
 import Friends from "../Friends";
 import FriendSuggestions from "../Friends/FriendSuggestions";
 import { SidebarQuery } from "__generated__/SidebarQuery.graphql";
