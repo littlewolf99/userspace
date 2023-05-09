@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import loader from "utils/queryLoader";
 import Layout, { loader as layoutLoader } from "components/Layout";
 import Dashboard, { loader as dashboardLoader } from "components/Dashboard";
 import Signup from "components/Signup";
@@ -8,12 +9,12 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
-    loader: layoutLoader,
+    loader: loader("layout", layoutLoader),
     children: [
       {
         path: "/",
         element: <Dashboard />,
-        loader: dashboardLoader,
+        loader: loader("dashboard", dashboardLoader),
       },
       {
         path: "/signup",
