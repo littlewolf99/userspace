@@ -9,8 +9,10 @@ type QueryStore = {
 
 const store: QueryStore = {};
 
-const loader = (key: string, actualLoader: () => Promise<QueryReference>) => {
+const loader = (key: string, importLoader: () => Promise<any>) => {
   return async () => {
+    const actualLoader: () => Promise<QueryReference> = await importLoader();
+
     if (store[key]) {
       store[key].dispose();
     }
