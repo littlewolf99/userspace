@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<d815285afcca240b1017e3cb2b96ac44>>
+ * @generated SignedSource<<8e4b30d07354dbbec21fe4799bfadb71>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -12,7 +12,6 @@ import { ConcreteRequest, Mutation } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type CreatePostInput = {
   content: string;
-  userId: string;
 };
 export type CreatePostMutation$variables = {
   input: CreatePostInput;

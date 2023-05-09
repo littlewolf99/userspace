@@ -9,7 +9,6 @@ export const dashboardContainerQuery = graphql`
   query DashboardContainerQuery {
     currentUser @required(action: NONE) {
       ...FeedFragment
-      ...PostCreateFragment
     }
   }
 `;
@@ -29,7 +28,7 @@ const DashboardContainer: React.FC<DashboardContainerProps> = ({
 
   return (
     <Space size={15} direction="vertical" style={{ width: "100%" }}>
-      <PostCreate user={data.currentUser} />
+      <PostCreate />
 
       <Feed user={data.currentUser} />
     </Space>

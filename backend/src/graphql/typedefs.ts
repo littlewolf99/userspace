@@ -72,7 +72,6 @@ export default /* GraphQL */ `
   }
 
   input CreatePostInput {
-    userId: String!
     content: String!
   }
 

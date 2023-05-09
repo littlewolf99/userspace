@@ -3,9 +3,8 @@
 import { GraphQLError } from "graphql";
 import { getSession } from "../../neo4j/connection";
 import Post from "../../entities/Post";
-import User from "../../entities/User";
-import { parseGlobalID } from "../utils/id";
 import { createEdge } from "../utils/pagination";
+import { GraphQLContext } from "../../auth";
 
 interface CreatePostInput {
   userId: string;
@@ -15,12 +14,11 @@ interface CreatePostInput {
 export default async function createPost(
   source: unknown,
   args: MutationInput<CreatePostInput>,
-  context: any
+  context: GraphQLContext
 ): Promise<Edge<Post>> {
-  const [id] = parseGlobalID(args.input.userId);
-  const user = await User.findOneBy({ id });
+  const user = context.currentUser;
   if (!user) {
-    throw new GraphQLError("User not found");
+    throw new GraphQLError("Not authenticated. Please log in to create post.");
   }
 
   const post = new Post();

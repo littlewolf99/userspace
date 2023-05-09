@@ -67,7 +67,6 @@ input ConnectUserInput {
 }
 
 input CreatePostInput {
-  userId: String!
   content: String!
 }
 

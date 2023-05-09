@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<63350f42c89fe544fdc8df5a5f1ce82c>>
+ * @generated SignedSource<<37a329ce3615d0535c0160bc9af4a9ac>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -13,7 +13,7 @@ import { FragmentRefs } from "relay-runtime";
 export type DashboardContainerQuery$variables = {};
 export type DashboardContainerQuery$data = {
   readonly currentUser: {
-    readonly " $fragmentSpreads": FragmentRefs<"FeedFragment" | "PostCreateFragment">;
+    readonly " $fragmentSpreads": FragmentRefs<"FeedFragment">;
   };
 } | null;
 export type DashboardContainerQuery = {
@@ -57,11 +57,6 @@ return {
               "args": null,
               "kind": "FragmentSpread",
               "name": "FeedFragment"
-            },
-            {
-              "args": null,
-              "kind": "FragmentSpread",
-              "name": "PostCreateFragment"
             }
           ],
           "storageKey": null
@@ -223,16 +218,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "008b5e175fee7dafdaab9b61f06122b1",
+    "cacheID": "5d067c04bf34c5416a2175fa3039d5e4",
     "id": null,
     "metadata": {},
     "name": "DashboardContainerQuery",
     "operationKind": "query",
-    "text": "query DashboardContainerQuery {\n  currentUser {\n    ...FeedFragment\n    ...PostCreateFragment\n    id\n  }\n}\n\nfragment FeedFragment on User {\n  feed(first: 10) {\n    edges {\n      node {\n        id\n        ...FeedItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment FeedItemFragment on Post {\n  id\n  content\n  postedAt\n  user {\n    id\n    username\n    firstName\n    lastName\n  }\n}\n\nfragment PostCreateFragment on User {\n  id\n}\n"
+    "text": "query DashboardContainerQuery {\n  currentUser {\n    ...FeedFragment\n    id\n  }\n}\n\nfragment FeedFragment on User {\n  feed(first: 10) {\n    edges {\n      node {\n        id\n        ...FeedItemFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n  id\n}\n\nfragment FeedItemFragment on Post {\n  id\n  content\n  postedAt\n  user {\n    id\n    username\n    firstName\n    lastName\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "7ea9d0db9cfe16881a650db097387f62";
+(node as any).hash = "876721fa6ec4ce6a0083a5e18f6c00e7";
 
 export default node;
