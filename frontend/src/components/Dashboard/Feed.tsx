@@ -1,6 +1,6 @@
 import * as React from "react";
 import { graphql, usePaginationFragment } from "react-relay";
-import { Space } from "antd";
+import { Button, Space } from "antd";
 import { FeedFragment$key } from "__generated__/FeedFragment.graphql";
 import PostCreate from "./PostCreate";
 import FeedItem from "./FeedItem";
@@ -48,9 +48,15 @@ const Feed: React.FC<FeedProps> = (props) => {
       ))}
 
       {hasNext && (
-        <button disabled={isLoadingNext} onClick={() => loadNext(pageSize)}>
-          {isLoadingNext ? "Loading..." : "Load more"}
-        </button>
+        <div style={{ marginTop: 5, textAlign: "center" }}>
+          <Button
+            type="primary"
+            onClick={() => loadNext(pageSize)}
+            disabled={isLoadingNext}
+          >
+            {isLoadingNext ? "Loading..." : "Load more"}
+          </Button>
+        </div>
       )}
     </Space>
   );
