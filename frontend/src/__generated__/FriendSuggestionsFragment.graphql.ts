@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<b959ed3bf7f1e4ff4410eaf02e5baeb0>>
+ * @generated SignedSource<<8781bcaa32d4ac892872fbb189904256>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type FriendSuggestionsFragment$data = {
   readonly friendSuggestions: {
@@ -19,6 +19,7 @@ export type FriendSuggestionsFragment$data = {
       } | null;
     } | null>;
   };
+  readonly id: string;
   readonly " $fragmentType": "FriendSuggestionsFragment";
 };
 export type FriendSuggestionsFragment$key = {
@@ -26,24 +27,64 @@ export type FriendSuggestionsFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"FriendSuggestionsFragment">;
 };
 
-const node: ReaderFragment = {
-  "argumentDefinitions": [],
+const node: ReaderFragment = (function(){
+var v0 = [
+  "friendSuggestions"
+],
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
+return {
+  "argumentDefinitions": [
+    {
+      "defaultValue": 3,
+      "kind": "LocalArgument",
+      "name": "count"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "cursor"
+    }
+  ],
   "kind": "Fragment",
-  "metadata": null,
+  "metadata": {
+    "connection": [
+      {
+        "count": "count",
+        "cursor": "cursor",
+        "direction": "forward",
+        "path": (v0/*: any*/)
+      }
+    ],
+    "refetch": {
+      "connection": {
+        "forward": {
+          "count": "count",
+          "cursor": "cursor"
+        },
+        "backward": null,
+        "path": (v0/*: any*/)
+      },
+      "fragmentPathInResult": [
+        "node"
+      ],
+      "operation": require('./FriendSuggestionsFragmentPaginationQuery.graphql'),
+      "identifierField": "id"
+    }
+  },
   "name": "FriendSuggestionsFragment",
   "selections": [
     {
-      "alias": null,
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "first",
-          "value": 3
-        }
-      ],
+      "alias": "friendSuggestions",
+      "args": null,
       "concreteType": "UserConnection",
       "kind": "LinkedField",
-      "name": "friendSuggestions",
+      "name": "__FriendSuggestionsFragmentFragment__friendSuggestions_connection",
       "plural": false,
       "selections": [
         {
@@ -62,37 +103,67 @@ const node: ReaderFragment = {
               "name": "node",
               "plural": false,
               "selections": [
-                {
-                  "kind": "RequiredField",
-                  "field": {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "id",
-                    "storageKey": null
-                  },
-                  "action": "NONE",
-                  "path": "friendSuggestions.edges.node.id"
-                },
+                (v1/*: any*/),
                 {
                   "args": null,
                   "kind": "FragmentSpread",
                   "name": "FriendFragment"
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "__typename",
+                  "storageKey": null
                 }
               ],
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "cursor",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "PageInfo",
+          "kind": "LinkedField",
+          "name": "pageInfo",
+          "plural": false,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "endCursor",
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "hasNextPage",
               "storageKey": null
             }
           ],
           "storageKey": null
         }
       ],
-      "storageKey": "friendSuggestions(first:3)"
-    }
+      "storageKey": null
+    },
+    (v1/*: any*/)
   ],
   "type": "User",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "fe830f557830e0efcfa1f5ef40a7cf3d";
+(node as any).hash = "0b9997837393f47dbf5309ab40d9b89d";
 
 export default node;

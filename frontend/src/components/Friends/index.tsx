@@ -1,21 +1,23 @@
 import * as React from "react";
-import { graphql, useFragment } from "react-relay";
-import { Space, Typography } from "antd";
+import { graphql, usePaginationFragment } from "react-relay";
+import { Button, Space, Typography } from "antd";
 import Block from "../common/Block";
 import Friend from "./Friend";
 import { FriendsFragment$key } from "__generated__/FriendsFragment.graphql";
+import { SidebarQuery } from "__generated__/SidebarQuery.graphql";
 
 const friendsFragment = graphql`
-  fragment FriendsFragment on User {
-    friends(first: 3) {
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
+  fragment FriendsFragment on User
+  @argumentDefinitions(
+    cursor: { type: "String" }
+    count: { type: "Int", defaultValue: 3 }
+  )
+  @refetchable(queryName: "FriendsFragmentPaginationQuery") {
+    friends(first: $count, after: $cursor)
+      @connection(key: "FriendsFragment__friends") {
       edges {
-        cursor
         node {
-          id @required(action: NONE)
+          id
           ...FriendFragment
         }
       }
@@ -28,7 +30,10 @@ interface FriendsProps {
 }
 
 const Friends: React.FC<FriendsProps> = (props) => {
-  const data = useFragment<FriendsFragment$key>(friendsFragment, props.user);
+  const { data, loadNext, isLoadingNext, hasNext } = usePaginationFragment<
+    SidebarQuery,
+    FriendsFragment$key
+  >(friendsFragment, props.user);
 
   return (
     <Block padding={20}>
@@ -44,6 +49,19 @@ const Friends: React.FC<FriendsProps> = (props) => {
               user={friendEdge?.node || null}
             />
           ))}
+
+          {hasNext && (
+            <div style={{ marginTop: 5, textAlign: "center" }}>
+              <Button
+                type="primary"
+                size="small"
+                onClick={() => loadNext(3)}
+                disabled={isLoadingNext}
+              >
+                Load more...
+              </Button>
+            </div>
+          )}
         </Space>
       ) : (
         <Typography.Text style={{ fontSize: "0.9em" }}>

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<18a0ebe814c509477ea23d57a9fb2a71>>
+ * @generated SignedSource<<cb4192deb1b3fc39c7c023666f8b0de8>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -8,22 +8,18 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { Fragment, ReaderFragment } from 'relay-runtime';
+import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
 export type FriendsFragment$data = {
   readonly friends: {
     readonly edges: ReadonlyArray<{
-      readonly cursor: string;
       readonly node: {
         readonly id: string;
         readonly " $fragmentSpreads": FragmentRefs<"FriendFragment">;
       } | null;
     } | null>;
-    readonly pageInfo: {
-      readonly endCursor: string | null;
-      readonly hasNextPage: boolean;
-    };
   };
+  readonly id: string;
   readonly " $fragmentType": "FriendsFragment";
 };
 export type FriendsFragment$key = {
@@ -31,26 +27,108 @@ export type FriendsFragment$key = {
   readonly " $fragmentSpreads": FragmentRefs<"FriendsFragment">;
 };
 
-const node: ReaderFragment = {
-  "argumentDefinitions": [],
+const node: ReaderFragment = (function(){
+var v0 = [
+  "friends"
+],
+v1 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "id",
+  "storageKey": null
+};
+return {
+  "argumentDefinitions": [
+    {
+      "defaultValue": 3,
+      "kind": "LocalArgument",
+      "name": "count"
+    },
+    {
+      "defaultValue": null,
+      "kind": "LocalArgument",
+      "name": "cursor"
+    }
+  ],
   "kind": "Fragment",
-  "metadata": null,
+  "metadata": {
+    "connection": [
+      {
+        "count": "count",
+        "cursor": "cursor",
+        "direction": "forward",
+        "path": (v0/*: any*/)
+      }
+    ],
+    "refetch": {
+      "connection": {
+        "forward": {
+          "count": "count",
+          "cursor": "cursor"
+        },
+        "backward": null,
+        "path": (v0/*: any*/)
+      },
+      "fragmentPathInResult": [
+        "node"
+      ],
+      "operation": require('./FriendsFragmentPaginationQuery.graphql'),
+      "identifierField": "id"
+    }
+  },
   "name": "FriendsFragment",
   "selections": [
     {
-      "alias": null,
-      "args": [
-        {
-          "kind": "Literal",
-          "name": "first",
-          "value": 3
-        }
-      ],
+      "alias": "friends",
+      "args": null,
       "concreteType": "UserConnection",
       "kind": "LinkedField",
-      "name": "friends",
+      "name": "__FriendsFragment__friends_connection",
       "plural": false,
       "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "concreteType": "UserEdge",
+          "kind": "LinkedField",
+          "name": "edges",
+          "plural": true,
+          "selections": [
+            {
+              "alias": null,
+              "args": null,
+              "concreteType": "User",
+              "kind": "LinkedField",
+              "name": "node",
+              "plural": false,
+              "selections": [
+                (v1/*: any*/),
+                {
+                  "args": null,
+                  "kind": "FragmentSpread",
+                  "name": "FriendFragment"
+                },
+                {
+                  "alias": null,
+                  "args": null,
+                  "kind": "ScalarField",
+                  "name": "__typename",
+                  "storageKey": null
+                }
+              ],
+              "storageKey": null
+            },
+            {
+              "alias": null,
+              "args": null,
+              "kind": "ScalarField",
+              "name": "cursor",
+              "storageKey": null
+            }
+          ],
+          "storageKey": null
+        },
         {
           "alias": null,
           "args": null,
@@ -63,73 +141,29 @@ const node: ReaderFragment = {
               "alias": null,
               "args": null,
               "kind": "ScalarField",
-              "name": "hasNextPage",
-              "storageKey": null
-            },
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
               "name": "endCursor",
               "storageKey": null
-            }
-          ],
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "concreteType": "UserEdge",
-          "kind": "LinkedField",
-          "name": "edges",
-          "plural": true,
-          "selections": [
-            {
-              "alias": null,
-              "args": null,
-              "kind": "ScalarField",
-              "name": "cursor",
-              "storageKey": null
             },
             {
               "alias": null,
               "args": null,
-              "concreteType": "User",
-              "kind": "LinkedField",
-              "name": "node",
-              "plural": false,
-              "selections": [
-                {
-                  "kind": "RequiredField",
-                  "field": {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "id",
-                    "storageKey": null
-                  },
-                  "action": "NONE",
-                  "path": "friends.edges.node.id"
-                },
-                {
-                  "args": null,
-                  "kind": "FragmentSpread",
-                  "name": "FriendFragment"
-                }
-              ],
+              "kind": "ScalarField",
+              "name": "hasNextPage",
               "storageKey": null
             }
           ],
           "storageKey": null
         }
       ],
-      "storageKey": "friends(first:3)"
-    }
+      "storageKey": null
+    },
+    (v1/*: any*/)
   ],
   "type": "User",
   "abstractKey": null
 };
+})();
 
-(node as any).hash = "33bd8a1ebd7ba76116fac58bb10ebef8";
+(node as any).hash = "f81cbafbd0029c2dcb405e74db7fde4a";
 
 export default node;
