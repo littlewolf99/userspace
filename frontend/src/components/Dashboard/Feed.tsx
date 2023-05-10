@@ -1,11 +1,11 @@
 import * as React from "react";
 import { graphql, usePaginationFragment } from "react-relay";
 import { Button, Space } from "antd";
-import { FeedFragment$key } from "__generated__/FeedFragment.graphql";
 import PostCreate from "./PostCreate";
 import FeedItem from "./FeedItem";
-import { DashboardContainerQuery } from "__generated__/DashboardContainerQuery.graphql";
 import usePostCreatedSubscription from "subscriptions/PostCreated";
+import { FeedFragment$key } from "__generated__/FeedFragment.graphql";
+import { FeedFragmentPaginationQuery } from "__generated__/FeedFragmentPaginationQuery.graphql";
 
 const pageSize = 10;
 
@@ -33,7 +33,7 @@ interface FeedProps {
 
 const Feed: React.FC<FeedProps> = (props) => {
   const { data, loadNext, hasNext, isLoadingNext } = usePaginationFragment<
-    DashboardContainerQuery,
+    FeedFragmentPaginationQuery,
     FeedFragment$key
   >(feedFragment, props.user);
 

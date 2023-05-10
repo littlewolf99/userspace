@@ -2,9 +2,9 @@ import * as React from "react";
 import { graphql, usePaginationFragment } from "react-relay";
 import { Button, Space, Typography } from "antd";
 import Block from "../common/Block";
-import { FriendSuggestionsFragment$key } from "__generated__/FriendSuggestionsFragment.graphql";
 import Friend from "./Friend";
-import { SidebarQuery } from "__generated__/SidebarQuery.graphql";
+import { FriendSuggestionsFragment$key } from "__generated__/FriendSuggestionsFragment.graphql";
+import { FriendSuggestionsFragmentPaginationQuery } from "__generated__/FriendSuggestionsFragmentPaginationQuery.graphql";
 
 const friendSuggestionsFragment = graphql`
   fragment FriendSuggestionsFragment on User
@@ -31,7 +31,7 @@ interface FriendSuggestionsProps {
 
 const FriendSuggestions: React.FC<FriendSuggestionsProps> = ({ user }) => {
   const { data, loadNext, isLoadingNext, hasNext } = usePaginationFragment<
-    SidebarQuery,
+    FriendSuggestionsFragmentPaginationQuery,
     FriendSuggestionsFragment$key
   >(friendSuggestionsFragment, user);
 

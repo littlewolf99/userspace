@@ -4,7 +4,7 @@ import { Button, Space, Typography } from "antd";
 import Block from "../common/Block";
 import Friend from "./Friend";
 import { FriendsFragment$key } from "__generated__/FriendsFragment.graphql";
-import { SidebarQuery } from "__generated__/SidebarQuery.graphql";
+import { FriendsFragmentPaginationQuery } from "__generated__/FriendsFragmentPaginationQuery.graphql";
 
 const friendsFragment = graphql`
   fragment FriendsFragment on User
@@ -31,7 +31,7 @@ interface FriendsProps {
 
 const Friends: React.FC<FriendsProps> = (props) => {
   const { data, loadNext, isLoadingNext, hasNext } = usePaginationFragment<
-    SidebarQuery,
+    FriendsFragmentPaginationQuery,
     FriendsFragment$key
   >(friendsFragment, props.user);
 
