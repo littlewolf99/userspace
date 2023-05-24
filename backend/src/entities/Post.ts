@@ -18,7 +18,7 @@ export default class Post extends BaseEntity {
   content: string;
 
   @Column({
-    type: "timestamp",
+    type: "timestamptz",
     update: false,
   })
   postedAt: Date;

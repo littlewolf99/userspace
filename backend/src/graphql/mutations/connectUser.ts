@@ -1,6 +1,8 @@
 /// <reference types="../../@types/global" />
 
-import { getSession } from "../../neo4j/connection";
+import { GraphQLError } from "graphql";
+import Friendship from "../../entities/Friendship";
+import User from "../../entities/User";
 
 interface ConnectUserInput {
   id1: number;
@@ -18,17 +20,21 @@ export default async function connectUser(
 ): Promise<ConnectUserPayload> {
   const input = args.input;
 
-  const session = getSession(context);
-  await session.executeWrite((txc) =>
-    txc.run(
-      `
-      MATCH (user1:USER {id: $id1})
-      MATCH (user2:USER {id: $id2})
-      MERGE (user1)-[r:FRIEND]-(user2)
-      `,
-      input
-    )
-  );
+  const user1 = await User.findOneBy({ id: args.input.id1 });
+  if (!user1) {
+    throw new GraphQLError("Invalid id specified.");
+  }
+  const user2 = await User.findOneBy({ id: args.input.id2 });
+  if (!user2) {
+    throw new GraphQLError("Invalid id specified.");
+  }
+
+  let friendships = [new Friendship(), new Friendship()];
+  friendships[0].user1 = user1;
+  friendships[0].user2 = user2;
+  friendships[1].user1 = user2;
+  friendships[1].user2 = user1;
+  await Promise.all(friendships.map((friendship) => friendship.save()));
 
   return {
     result: true,
